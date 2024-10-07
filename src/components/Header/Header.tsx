@@ -4,11 +4,9 @@ import { fullName } from '../../helpers/utils';
 import { Heading } from '../Heading/Heading';
 import PDFDownloadButton from '../PDF/PDFDownloadButton';
 
-interface HeaderProps {
-  secret?: string;
-}
+interface HeaderProps {}
 
-export const Header: React.FC<HeaderProps> = ({ secret }) => {
+export const Header: React.FC<HeaderProps> = () => {
   return (
     <div className="mb-12 border-b-2 border-neutral-4 py-12">
       <div className="container">
@@ -19,7 +17,11 @@ export const Header: React.FC<HeaderProps> = ({ secret }) => {
               {personal.title}
             </Heading>
           </div>
-          <PDFDownloadButton secret={secret} />
+          <PDFDownloadButton
+            text="Download full dossier"
+            link={`/api/dossier`}
+          />
+          <PDFDownloadButton text="Download only CV" link={`/api/pdf`} />
         </div>
       </div>
     </div>

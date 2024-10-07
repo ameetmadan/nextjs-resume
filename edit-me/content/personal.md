@@ -1,9 +1,13 @@
 ---
-givenName: Stacy
-familyName: Fakename
-title: Official Job Title
-location: Austin, TX
+givenName: Ameet
+familyName: Madan
+title: Full Stack Software Engineer
+location: Zurich, Switzerland
 twitterUsername: stacy_fakename
+phoneNumber: +41 78 850 51 66
+# address: Rickenstrasse 10, 8733 Eschenbach SG
+email: ameet@madan.ch
+hobbies: Hiking and fitness, activities that build resilience and focus, which I apply in my work.
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra vitae congue. Neque viverra [justo nec ultrices](#). Urna nunc id cursus metus aliquam eleifend mi in nulla. Proin sagittis nisl rhoncus mattis rhoncus urna neque viverra.
+Full-stack software engineer with extensive frontend experience. Proven track record of contributing to and leading full-stack projects in agile environments, with a strong emphasis on design, user experience, and delivering high-quality solutions that drive customer value.

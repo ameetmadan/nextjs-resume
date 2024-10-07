@@ -1,3 +1,4 @@
+import React from 'react';
 import AboutMe from 'src/components/Articles/AboutMe';
 import Achievements from 'src/components/Articles/Achievements';
 import { AdditionalInfo } from 'src/components/Articles/AdditionalInfo';
@@ -26,13 +27,13 @@ const Page: React.FC<PageProps> = () => {
           <Professional />
         </div>
 
-        <div className="mt-12">
+        <div className="mt-8">
           <Achievements />
         </div>
 
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <AdditionalInfo />
-        </div>
+        </div> */}
       </div>
 
       <Footer />

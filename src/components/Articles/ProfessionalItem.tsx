@@ -24,8 +24,12 @@ const ProfessionalItem: React.FC<ProfessionalExperience> = ({
         </span>
         <span> at {organization}</span>
       </Heading>
-
       <div className="mt-1 font-medium tracking-wide">
+        <>
+          {startDate}–{!endDate ? 'Current' : endDate}
+        </>
+      </div>
+      {/* <div className="mt-1 font-medium tracking-wide">
         {previousTitlesSorted.length === 0 ? (
           <>
             {startDate}–{!endDate ? 'Current' : endDate}
@@ -42,7 +46,7 @@ const ProfessionalItem: React.FC<ProfessionalExperience> = ({
             ))}
           </>
         )}
-      </div>
+      </div> */}
 
       <Prose html={body.html} />
     </article>

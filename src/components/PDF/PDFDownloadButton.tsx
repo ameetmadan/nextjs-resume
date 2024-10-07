@@ -3,17 +3,18 @@ import React from 'react';
 import ButtonLink from '../Button/ButtonLink';
 
 interface PDFDownloadButtonProps {
-  secret?: string;
+  text: string;
+  link: string;
 }
 
-const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({ secret }) => {
+const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
+  link,
+  text,
+}) => {
   return (
-    <ButtonLink
-      href={secret ? `/api/pdf?secret=${secret}` : '/api/pdf'}
-      size="lg"
-    >
+    <ButtonLink href={link} size="lg">
       <DocumentIcon className="h-6" />
-      View or Download PDF
+      {text}
     </ButtonLink>
   );
 };

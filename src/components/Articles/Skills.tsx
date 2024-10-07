@@ -15,7 +15,7 @@ const Skills: React.FC = () => {
         text="Skills &amp; Expertise"
       />
 
-      <div className="mt-2 grid grid-flow-row gap-6 lg:grid-flow-col">
+      <div className="mt-2 grid grid-flow-row grid-cols-3 gap-6 lg:grid-flow-col">
         {allSkills.map((skill, skillIndex) => (
           <div key={skill._id}>
             <Heading level={4}>

@@ -2,7 +2,7 @@
 import {
   PrivateField,
   ProfessionalExperience,
-  additionalInfo,
+  // additionalInfo,
   allSkills,
   personal,
 } from '@content';
@@ -25,7 +25,6 @@ import { getAccentColor, getNeutralColor } from '../../helpers/colors';
 import {
   fullName,
   sortedAchievements,
-  sortedPreviousTitles,
   sortedProfessionalExperiences,
 } from '../../helpers/utils';
 import { BuildingColumns } from './Icons/BuildingColumns';
@@ -33,7 +32,6 @@ import { CircleBriefcase } from './Icons/CircleBriefcase';
 import { CircleCheck } from './Icons/CircleCheck';
 import { CircleGraduationCap } from './Icons/CircleGraduationCap';
 import { CircleIdCard } from './Icons/CircleIdCard';
-import { CirclePaintbrush } from './Icons/CirclePaintbrush';
 import { CircleUser } from './Icons/CircleUser';
 import { Star } from './Icons/Star';
 
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     padding: spacers[4],
   },
-  section: { marginBottom: spacers[4] },
+  section: { marginBottom: spacers[3] },
   sectionHeading: {
     alignItems: 'center',
     display: 'flex',
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     gap: spacers[1],
     marginBottom: spacers[1],
-    marginTop: spacers[3],
+    marginTop: spacers[2],
   },
   itemSubheadingRow: {
     alignItems: 'center',
@@ -267,9 +265,9 @@ interface ProfessionExperienceProps {
 const ProfessionalExperienceDetails: React.FC<ProfessionExperienceProps> = ({
   professionalExperience,
 }) => {
-  const previousTitlesSorted = professionalExperience.previousTitles
-    ? sortedPreviousTitles(professionalExperience.previousTitles)
-    : [];
+  // const previousTitlesSorted = professionalExperience.previousTitles
+  //   ? sortedPreviousTitles(professionalExperience.previousTitles)
+  //   : [];
   return (
     <>
       <View style={styles.itemSubheadingRow}>
@@ -279,20 +277,20 @@ const ProfessionalExperienceDetails: React.FC<ProfessionExperienceProps> = ({
             ? professionalExperience.endDate
             : 'Current'}
         </Text>
-        <View style={styles.itemSubheadingSubRow}>
+        {/* <View style={styles.itemSubheadingSubRow}>
           {previousTitlesSorted.length > 0 &&
             previousTitlesSorted?.map((prevTitle, idx) => (
               <Text key={idx} style={styles.itemSubheadingItalic}>
                 {prevTitle.title} {prevTitle.startDate}—{prevTitle.endDate}
               </Text>
             ))}
-        </View>
+        </View> */}
       </View>
     </>
   );
 };
 
-const PDF: React.FC<PDFProps> = ({ privateInformation }) => {
+const PDF: React.FC<PDFProps> = () => {
   const year = new Date().getFullYear();
 
   return (
@@ -315,6 +313,13 @@ const PDF: React.FC<PDFProps> = ({ privateInformation }) => {
             </View>
             <View style={styles.section}>
               <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>Hobbies and Interests</Text>
+              </View>
+              <Html {...htmlProps}>{personal.hobbies ?? ''}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
                 <CircleIdCard size={fontSizes.m} />
                 <Text>Contact Information</Text>
               </View>
@@ -322,12 +327,14 @@ const PDF: React.FC<PDFProps> = ({ privateInformation }) => {
                 <Text style={styles.bold}>Location:</Text>
                 <Text>&nbsp;{personal.location}</Text>
               </View>
-              {privateInformation?.map((privateField) => (
-                <View key={privateField._id}>
-                  <Text style={styles.bold}>{privateField.label}:&nbsp;</Text>
-                  <Html {...htmlProps}>{privateField.body.html}</Html>
-                </View>
-              ))}
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Phone number:</Text>
+                <Text>&nbsp;{personal.phoneNumber}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Email:</Text>
+                <Text>&nbsp;{personal.email}</Text>
+              </View>
             </View>
             <View style={styles.section}>
               <View style={styles.sectionHeading}>
@@ -376,7 +383,7 @@ const PDF: React.FC<PDFProps> = ({ privateInformation }) => {
           <View style={styles.section}>
             <View style={styles.sectionHeading}>
               <CircleGraduationCap size={fontSizes.m} />
-              <Text>Achievements</Text>
+              <Text>Education</Text>
             </View>
             {sortedAchievements.map((achievement) => (
               <View key={achievement._id}>
@@ -393,23 +400,66 @@ const PDF: React.FC<PDFProps> = ({ privateInformation }) => {
               </View>
             ))}
           </View>
-          <View style={styles.section}>
-            <View style={styles.sectionHeading}>
-              <CirclePaintbrush size={fontSizes.m} />
-              <Text>{additionalInfo.title}</Text>
-            </View>
-            <Html
-              {...htmlProps}
-              stylesheet={{
-                ...htmlProps.stylesheet,
-                p: { marginBottom: spacers[1] },
-              }}
-            >
-              {additionalInfo.body.html}
-            </Html>
-          </View>
         </View>
       </Page>
+      {/* <Page size="LETTER" style={styles.page}>
+        <View style={styles.sidebar}>
+          <View style={styles.header}>
+            <Text style={styles.headerTitle}>{fullName}</Text>
+            <Text style={styles.headerSubtitle}>{personal.title}</Text>
+          </View>
+          <View style={styles.sidebarContent}>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>About Me</Text>
+              </View>
+              <Html {...htmlProps}>{personal.body.html}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleIdCard size={fontSizes.m} />
+                <Text>Contact Information</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Location:</Text>
+                <Text>&nbsp;{personal.location}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Phone number:</Text>
+                <Text>&nbsp;{personal.phoneNumber}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Email:</Text>
+                <Text>&nbsp;{personal.email}</Text>
+              </View>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeading}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Skills &amp; Expertise</Text>
+              </View>
+              {allSkills.map((skill, skillIndex) => (
+                <View key={skill._id}>
+                  <View style={styles.itemHeading}>
+                    <View style={styles.sectionHeadingStars}>
+                      {Array.from(Array(allSkills.length - skillIndex)).map(
+                        (star, starIndex) => (
+                          <Star key={starIndex} size={fontSizes.xxs} />
+                        ),
+                      )}
+                    </View>
+                    <Text style={styles.bold}>{skill.title}</Text>
+                  </View>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
+        <View style={styles.main}>
+        </View>
+      </Page> */}
     </Document>
   );
 };

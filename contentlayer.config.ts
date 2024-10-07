@@ -1,4 +1,8 @@
-import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files';
+import {
+  defineDocumentType,
+  defineNestedType,
+  makeSource,
+} from 'contentlayer/source-files';
 
 export const Personal = defineDocumentType(() => ({
   name: 'Personal',
@@ -29,6 +33,26 @@ export const Personal = defineDocumentType(() => ({
     twitterUsername: {
       type: 'string',
       description: 'Your Twitter username without the "@" symbol',
+      required: false,
+    },
+    phoneNumber: {
+      type: 'string',
+      description: 'Your phone number',
+      required: false,
+    },
+    address: {
+      type: 'string',
+      description: 'Your phone number',
+      required: false,
+    },
+    email: {
+      type: 'string',
+      description: 'Your phone number',
+      required: false,
+    },
+    hobbies: {
+      type: 'string',
+      description: 'Your hobbies',
       required: false,
     },
   },
@@ -156,7 +180,6 @@ export default makeSource({
     Skill,
     ProfessionalExperience,
     Achievement,
-    AdditionalInfo,
     PrivateField,
   ],
 });
