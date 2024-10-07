@@ -12,6 +12,7 @@ import { fullName } from 'src/helpers/utils';
 import { twMerge } from 'tailwind-merge';
 import { ThemeSetting } from '../../edit-me/types/Config';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
 
 const accentColor = resumeConfig.accentColor;
 
@@ -81,6 +82,7 @@ const RootLayout: React.FC<PropsWithChildren> = async ({ children }) => {
       <body className="bg-neutral-1 text-neutral-12 selection:bg-accent-11 selection:text-neutral-1">
         {children}
       </body>
+      <Analytics />
     </html>
   );
 };
