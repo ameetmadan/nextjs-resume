@@ -14,6 +14,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from '@react-pdf/renderer';
 import { HtmlProps } from 'node_modules/react-pdf-html/dist/types/Html';
 import React from 'react';
@@ -35,7 +36,6 @@ import { CircleGraduationCap } from './Icons/CircleGraduationCap';
 import { CircleIdCard } from './Icons/CircleIdCard';
 import { CircleUser } from './Icons/CircleUser';
 import { Star } from './Icons/Star';
-import { Sparkles } from './Icons/Sparkles.tsx';
 
 const theme = resumeConfig.pdfTheme;
 const albertSrc = 'https://fonts.gstatic.com/s/albertsans/v1';
@@ -317,6 +317,18 @@ const PDF: React.FC<PDFProps> = () => {
       <Page size="LETTER" style={styles.page}>
         <View style={styles.sidebar}>
           <View style={styles.header}>
+            <Image
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 50,
+                marginBottom: 5,
+                objectFit: 'cover',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}
+              src="public/portrait.png"
+            />
             <Text style={styles.headerTitle}>{fullName}</Text>
             <Text style={styles.headerSubtitle}>{personal.title}</Text>
           </View>
