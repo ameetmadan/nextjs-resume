@@ -5,6 +5,7 @@ import { AdditionalInfo } from 'src/components/Articles/AdditionalInfo';
 import { ContactInformation } from 'src/components/Articles/ContactInformation';
 import Professional from 'src/components/Articles/Professional';
 import Skills from 'src/components/Articles/Skills';
+import SoftSkills from 'src/components/Articles/SoftSkills';
 import { Footer } from 'src/components/Footer/Footer';
 import { Header } from 'src/components/Header/Header';
 
@@ -21,6 +22,10 @@ const Page: React.FC<PageProps> = () => {
 
         <div className="mt-12">
           <Skills />
+        </div>
+
+        <div className="mt-12">
+          <SoftSkills />
         </div>
 
         <div className="mt-12">

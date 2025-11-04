@@ -4,6 +4,7 @@ import {
   ProfessionalExperience,
   // additionalInfo,
   allSkills,
+  allSoftSkills,
   personal,
 } from '@content';
 import {
@@ -34,6 +35,7 @@ import { CircleGraduationCap } from './Icons/CircleGraduationCap';
 import { CircleIdCard } from './Icons/CircleIdCard';
 import { CircleUser } from './Icons/CircleUser';
 import { Star } from './Icons/Star';
+import { Sparkles } from './Icons/Sparkles.tsx';
 
 const theme = resumeConfig.pdfTheme;
 const albertSrc = 'https://fonts.gstatic.com/s/albertsans/v1';
@@ -159,6 +161,15 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     gap: spacers[1],
   },
+  sectionHeadingMarginBottom: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: fontSizes.m,
+    fontWeight: 700,
+    gap: spacers[1],
+    marginBottom: '5px',
+  },
   sectionHeadingNonHTML: {
     alignItems: 'center',
     display: 'flex',
@@ -221,6 +232,12 @@ const styles = StyleSheet.create({
   bold: { fontWeight: 700 },
   flexColumn: { display: 'flex', flexDirection: 'column' },
   flexRow: { alignItems: 'center', display: 'flex', flexDirection: 'row' },
+  flexRowMarginBottom: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: '5px',
+  },
   flexRowAlignStart: {
     alignItems: 'flex-start',
     display: 'flex',
@@ -335,11 +352,35 @@ const PDF: React.FC<PDFProps> = () => {
                 <Text style={styles.bold}>Email:</Text>
                 <Text>&nbsp;{personal.email}</Text>
               </View>
+              {personal.birthday && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Birthday:</Text>
+                  <Text>&nbsp;{personal.birthday}</Text>
+                </View>
+              )}
+              {personal.languages && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Languages:</Text>
+                  <Text>&nbsp;{personal.languages}</Text>
+                </View>
+              )}
+              {personal.nationality && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Nationality:</Text>
+                  <Text>&nbsp;{personal.nationality}</Text>
+                </View>
+              )}
+              {personal.civilStatus && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Civil Status:</Text>
+                  <Text>&nbsp;{personal.civilStatus}</Text>
+                </View>
+              )}
             </View>
             <View style={styles.section}>
               <View style={styles.sectionHeading}>
                 <CircleCheck size={fontSizes.m} />
-                <Text>Skills &amp; Expertise</Text>
+                <Text>Technical Skills</Text>
               </View>
               {allSkills.map((skill, skillIndex) => (
                 <View key={skill._id}>
@@ -353,6 +394,17 @@ const PDF: React.FC<PDFProps> = () => {
                     </View>
                     <Text style={styles.bold}>{skill.title}</Text>
                   </View>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))}
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingMarginBottom}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Soft Skills</Text>
+              </View>
+              {allSoftSkills.map((skill, skillIndex) => (
+                <View key={skill._id}>
                   <Html {...htmlProps}>{skill.body.html}</Html>
                 </View>
               ))}
@@ -402,64 +454,6 @@ const PDF: React.FC<PDFProps> = () => {
           </View>
         </View>
       </Page>
-      {/* <Page size="LETTER" style={styles.page}>
-        <View style={styles.sidebar}>
-          <View style={styles.header}>
-            <Text style={styles.headerTitle}>{fullName}</Text>
-            <Text style={styles.headerSubtitle}>{personal.title}</Text>
-          </View>
-          <View style={styles.sidebarContent}>
-            <View style={styles.section}>
-              <View style={styles.sectionHeadingNonHTML}>
-                <CircleUser size={fontSizes.m} />
-                <Text>About Me</Text>
-              </View>
-              <Html {...htmlProps}>{personal.body.html}</Html>
-            </View>
-            <View style={styles.section}>
-              <View style={styles.sectionHeadingNonHTML}>
-                <CircleIdCard size={fontSizes.m} />
-                <Text>Contact Information</Text>
-              </View>
-              <View style={styles.flexRow}>
-                <Text style={styles.bold}>Location:</Text>
-                <Text>&nbsp;{personal.location}</Text>
-              </View>
-              <View style={styles.flexRow}>
-                <Text style={styles.bold}>Phone number:</Text>
-                <Text>&nbsp;{personal.phoneNumber}</Text>
-              </View>
-              <View style={styles.flexRow}>
-                <Text style={styles.bold}>Email:</Text>
-                <Text>&nbsp;{personal.email}</Text>
-              </View>
-            </View>
-            <View style={styles.section}>
-              <View style={styles.sectionHeading}>
-                <CircleCheck size={fontSizes.m} />
-                <Text>Skills &amp; Expertise</Text>
-              </View>
-              {allSkills.map((skill, skillIndex) => (
-                <View key={skill._id}>
-                  <View style={styles.itemHeading}>
-                    <View style={styles.sectionHeadingStars}>
-                      {Array.from(Array(allSkills.length - skillIndex)).map(
-                        (star, starIndex) => (
-                          <Star key={starIndex} size={fontSizes.xxs} />
-                        ),
-                      )}
-                    </View>
-                    <Text style={styles.bold}>{skill.title}</Text>
-                  </View>
-                  <Html {...htmlProps}>{skill.body.html}</Html>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
-        <View style={styles.main}>
-        </View>
-      </Page> */}
     </Document>
   );
 };

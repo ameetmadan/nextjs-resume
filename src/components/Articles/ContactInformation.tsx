@@ -31,6 +31,26 @@ export const ContactInformation: React.FC<ContactInformationProps> = ({
         <li>
           <strong>Email: </strong> {personal.email}
         </li>
+        {personal.birthday && (
+          <li>
+            <strong>Birthday: </strong> {personal.birthday}
+          </li>
+        )}
+        {personal.languages && (
+          <li>
+            <strong>Languages: </strong> {personal.languages}
+          </li>
+        )}
+        {personal.nationality && (
+          <li>
+            <strong>Nationality: </strong> {personal.nationality}
+          </li>
+        )}
+        {personal.civilStatus && (
+          <li>
+            <strong>Civil Status: </strong> {personal.civilStatus}
+          </li>
+        )}
 
         {/* private access required */}
         {/* {privateInformation?.map((privateField) => (

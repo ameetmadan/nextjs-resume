@@ -40,19 +40,39 @@ export const Personal = defineDocumentType(() => ({
       description: 'Your phone number',
       required: false,
     },
+    birthday: {
+      type: 'string',
+      description: 'Your date of birth',
+      required: false,
+    },
     address: {
       type: 'string',
-      description: 'Your phone number',
+      description: 'Your address',
       required: false,
     },
     email: {
       type: 'string',
-      description: 'Your phone number',
+      description: 'Your email address',
       required: false,
     },
     hobbies: {
       type: 'string',
       description: 'Your hobbies',
+      required: false,
+    },
+    languages: {
+      type: 'string',
+      description: 'Languages you speak',
+      required: false,
+    },
+    nationality: {
+      type: 'string',
+      description: 'Your nationality',
+      required: false,
+    },
+    civilStatus: {
+      type: 'string',
+      description: 'Your civil status',
       required: false,
     },
   },
@@ -65,6 +85,18 @@ export const Skill = defineDocumentType(() => ({
     title: {
       type: 'string',
       description: 'A name for the category of skills',
+      required: true,
+    },
+  },
+}));
+
+export const SoftSkill = defineDocumentType(() => ({
+  name: 'SoftSkill',
+  filePathPattern: 'softSkills/*.md',
+  fields: {
+    title: {
+      type: 'string',
+      description: 'A name for the category of soft skills',
       required: true,
     },
   },
@@ -178,6 +210,7 @@ export default makeSource({
   documentTypes: [
     Personal,
     Skill,
+    SoftSkill,
     ProfessionalExperience,
     Achievement,
     PrivateField,
