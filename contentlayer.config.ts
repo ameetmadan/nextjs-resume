@@ -205,6 +205,69 @@ export const PrivateField = defineDocumentType(() => ({
   },
 }));
 
+export const Letter = defineDocumentType(() => ({
+  name: 'Letter',
+  filePathPattern: 'letter.md',
+  isSingleton: true,
+  fields: {
+    companyName: {
+      type: 'string',
+      description: 'The name of the company you are applying to',
+      required: true,
+    },
+    recipientName: {
+      type: 'string',
+      description: 'The name of the person you are writing to',
+      required: true,
+    },
+    recipientTitle: {
+      type: 'string',
+      description: 'The job title of the recipient',
+      required: true,
+    },
+    companyAddress: {
+      type: 'string',
+      description: 'Street address of the company',
+      required: true,
+    },
+    companyCity: {
+      type: 'string',
+      description: 'City of the company',
+      required: true,
+    },
+    companyPostalCode: {
+      type: 'string',
+      description: 'Postal code of the company',
+      required: true,
+    },
+    companyCountry: {
+      type: 'string',
+      description: 'Country of the company',
+      required: true,
+    },
+    positionTitle: {
+      type: 'string',
+      description: 'The position you are applying for',
+      required: true,
+    },
+    positionReference: {
+      type: 'string',
+      description: 'Job reference number (optional)',
+      required: false,
+    },
+    subject: {
+      type: 'string',
+      description: 'Subject line of the letter',
+      required: true,
+    },
+    date: {
+      type: 'string',
+      description: 'Date of the letter (leave empty to use current date)',
+      required: false,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: 'edit-me/content',
   documentTypes: [
@@ -214,5 +277,6 @@ export default makeSource({
     ProfessionalExperience,
     Achievement,
     PrivateField,
+    Letter,
   ],
 });
