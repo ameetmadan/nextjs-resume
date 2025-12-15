@@ -5,9 +5,9 @@ startDate: September 2019
 endDate: Present
 ---
 
-I have been freelancing for the past 5 years. I have worked on a broad variety of projects, spanning across different industries and technologies.
+Some projects I have worked on:
 
-- Fire Protection Inspections App: Built a mobile app with web admin for inspections, building plan rendering, and photo workflows, replacing a generic tool and improving data accuracy and field efficiency.
-- Oil Level Tracking Web App: Developed a web platform to monitor fuel inventory across multiple sites, automating calculations and alerts, eliminating manual processes, and improving reporting accuracy.
-<!-- - Hospital Quality Management Survey: Created a configurable web app for exit surveys with JSON-based questions and data export, streamlining feedback collection and enabling targeted care improvements. -->
-- Gamified Learning Mobile App: Built a mobile app with web admin for a gamified medical training stage, integrating progress tracking and analytics for scientific evaluation of learning efficiency.
+- Built a mobile app (React Native, Express.js, PostgreSQL, Next.js, Docker) with web admin for inspections, building plan rendering, and photo workflows—processing multiple hundred inspections annually and reducing inspection documentation time by 60%.
+  <!-- - Developed a web platform (React, Express, PostgreSQL) to monitor fuel inventory across multiple sites—automating calculations and alerts, saving 10 hours/week of manual data entry across 100+ gas stations. -->
+  <!-- - Hospital Quality Management Survey: Created a configurable web app for exit surveys with JSON-based questions and data export, streamlining feedback collection and enabling targeted care improvements. -->
+- Built a mobile app (React Native, Firebase, Nest.js, Next.js) with web admin for a gamified medical training stage—used by 100+ medical students, integrating progress tracking and analytics for scientific evaluation of learning efficiency.
