@@ -1,0 +1,32 @@
+{
+  "preferredStack": [
+    {
+      "name": "React",
+      "category": "Frontend Framework"
+    },
+    {
+      "name": "Next.js",
+      "category": "Frontend Framework"
+    },
+    {
+      "name": "React Native",
+      "category": "Mobile Framework"
+    },
+    {
+      "name": "TypeScript",
+      "category": "Language"
+    },
+    {
+      "name": "TailwindCSS",
+      "category": "Styling"
+    },
+    {
+      "name": "React Query",
+      "category": "State Management"
+    },
+    {
+      "name": "Zustand",
+      "category": "State Management"
+    }
+  ]
+}

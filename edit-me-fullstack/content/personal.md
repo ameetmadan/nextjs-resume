@@ -1,7 +1,7 @@
 ---
 givenName: Ameet
 familyName: Madan
-title: Frontend Software Engineer
+title: Full Stack Software Engineer
 location: Zurich, Switzerland
 twitterUsername: stacy_fakename
 phoneNumber: +41 78 850 51 66

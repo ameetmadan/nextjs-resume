@@ -21,7 +21,14 @@ export const Header: React.FC<HeaderProps> = () => {
           {/*  text="Download full dossier"*/}
           {/*  link={`/api/dossier`}*/}
           {/*/>*/}
-          <PDFDownloadButton text="Download CV" link={`/api/pdf`} />
+          <PDFDownloadButton
+            text="Download fullstack CV"
+            link={`/api/pdf/fullstack`}
+          />
+          <PDFDownloadButton
+            text="Download frontend CV"
+            link={`/api/pdf/frontend`}
+          />
         </div>
       </div>
     </div>

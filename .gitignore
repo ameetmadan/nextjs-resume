@@ -51,3 +51,5 @@ tsconfig.tsbuildinfo
 
 # Contentlayer
 .contentlayer
+.idea
+.vscode

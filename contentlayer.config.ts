@@ -269,7 +269,7 @@ export const Letter = defineDocumentType(() => ({
 }));
 
 export default makeSource({
-  contentDirPath: 'edit-me/content',
+  contentDirPath: 'edit-me-fullstack/content',
   documentTypes: [
     Personal,
     Skill,

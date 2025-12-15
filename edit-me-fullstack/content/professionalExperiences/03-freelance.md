@@ -5,7 +5,7 @@ startDate: September 2019
 endDate: Present
 ---
 
-I have been freelancing for the past 5 years. I have worked on a broad variety of projects, spanning across different industries and technologies.
+I have been freelancing for inbound projects the past 5 years. I have worked on a broad variety of projects, spanning across different industries and technologies.
 
 - Fire Protection Inspections App: Built a mobile app with web admin for inspections, building plan rendering, and photo workflows, replacing a generic tool and improving data accuracy and field efficiency.
 - Oil Level Tracking Web App: Developed a web platform to monitor fuel inventory across multiple sites, automating calculations and alerts, eliminating manual processes, and improving reporting accuracy.

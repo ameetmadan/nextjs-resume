@@ -1,0 +1,74 @@
+{
+  "lastUpdated": "2025-12-15T15:42:09.084Z",
+  "totalProjects": 5,
+  "projects": [
+    {
+      "id": "bookmarked",
+      "title": "Bookmarked",
+      "description": "A bookmarking app that allows you to save and organize your favorite websites. With AI summarization features.",
+      "liveLink": "https://github.com/ameetmadan/bookmarked.pro",
+      "tags": [
+        "AI",
+        "bookmarking"
+      ]
+    },
+    {
+      "id": "bytebuilderslab",
+      "title": "ByteBuildersLab",
+      "description": "AI process automation agency that helps businesses streamline their workflows and improve efficiency.",
+      "liveLink": "https://bytebuilderslab.com",
+      "tags": [
+        "web development",
+        "digital marketing"
+      ]
+    },
+    {
+      "id": "giftbuddy",
+      "title": "Giftbuddy",
+      "description": "A gift-giving app that allows you to create and share gift ideas with friends and family. Using AI to suggest gifts based on your friends' interests.",
+      "liveLink": "https://github.com/ameetmadan/giftbuddy.pro",
+      "tags": [
+        "AI",
+        "gift giving"
+      ]
+    },
+    {
+      "id": "test-my-app",
+      "title": "TestMyApp",
+      "description": "A app to find users interested to test your mobile app, website, or other product.",
+      "liveLink": "https://testmyapp.pro",
+      "tags": [
+        "platform",
+        "app testing"
+      ]
+    }
+  ],
+  "projectsByTag": {
+    "AI": [
+      "Bookmarked",
+      "Bothive",
+      "Giftbuddy"
+    ],
+    "bookmarking": [
+      "Bookmarked"
+    ],
+    "consulting": [
+      "Bothive"
+    ],
+    "web development": [
+      "ByteBuildersLab"
+    ],
+    "digital marketing": [
+      "ByteBuildersLab"
+    ],
+    "gift giving": [
+      "Giftbuddy"
+    ],
+    "platform": [
+      "TestMyApp"
+    ],
+    "app testing": [
+      "TestMyApp"
+    ]
+  }
+}

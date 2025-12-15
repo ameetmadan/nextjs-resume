@@ -1,0 +1,289 @@
+{
+  "lastUpdated": "2025-12-15T15:38:45.196Z",
+  "totalCourses": 21,
+  "courses": [
+    {
+      "id": "javascript-react-patterns",
+      "title": "A Tour of JavaScript & React Patterns",
+      "teacher": "Lydia Hallie",
+      "description": "Learn a suite of design patterns to improve the code architecture of your web apps! You’ll get an overview of more traditional design patterns with JavaScript, such as the Singleton and Proxy patterns.",
+      "duration": "3h 29m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "algos-and-ds",
+      "title": "Algorithms and Data Structures",
+      "teacher": "ThePrimeagen",
+      "description": "Learn the fundamentals of algorithms and data structures and how to use them to solve problems.",
+      "duration": "9h 20m",
+      "level": "intermediate",
+      "category": [
+        "data-structures",
+        "algorithms"
+      ]
+    },
+    {
+      "id": "angular-17",
+      "title": "Angular 17+ Fundamentals",
+      "teacher": "Mark Thompson",
+      "description": "Learn the fundamentals of Angular 17+ and build your first Angular app!",
+      "duration": "4h 35m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "astro-web-dev",
+      "title": "Astro for Fast Website Development",
+      "teacher": "Jason Lengstorf",
+      "description": "Learn how to build fast websites using Astro!",
+      "duration": "3h 37m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "complete-intro-react",
+      "title": "Complete Intro to React",
+      "teacher": "Brian Holt",
+      "description": "Learn to build real-world applications using modern React 18.x+! Much more than an intro, you’ll start from the ground up, getting to using the latest features in React, including hooks, effects, context, and portals.",
+      "duration": "5h 50m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "css-layout-grid",
+      "title": "CSS Layout and Grid",
+      "teacher": "Jen Kramer",
+      "description": "Learn how to build responsive, fluid, and adaptive layouts with CSS Grid!",
+      "duration": "6h 21m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "deep-javascript-foundations",
+      "title": "Deep JavaScript Foundations",
+      "teacher": "Kyle Simpson",
+      "description": "Learn the foundational concepts of JavaScript, including the language itself, the DOM, and the event loop!",
+      "duration": "10h 32m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "devops-for-devs",
+      "title": "DevOps for Devs",
+      "teacher": "Erik Reinert",
+      "description": "Learn how to build and deploy modern web apps using modern tools and practices! You’ll learn how to use Docker, Kubernetes, and GitHub Actions to build, test, and deploy your apps.",
+      "duration": "4h 42m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "frontend-system-design",
+      "title": "Frontend System Design",
+      "teacher": "Evgenii Ray",
+      "description": "Learn the fundamentals of frontend system design and how to build scalable and maintainable frontend applications.",
+      "duration": "4h 37m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "full-stack-for-frontend",
+      "title": "Full Stack for Frontend Developers",
+      "teacher": "Jem Young",
+      "description": "Learn how to build and deploy modern web apps using modern tools and practices! You’ll learn how to use Docker, Kubernetes, and GitHub Actions to build, test, and deploy your apps.",
+      "duration": "8h 12m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "functional-javascript",
+      "title": "Functional JavaScript",
+      "teacher": "Anjana Vakil",
+      "description": "Learn how to write functional JavaScript code using higher-order functions, closures, and immutable data structures!",
+      "duration": "3h 54m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "intro-to-databases",
+      "title": "Intro to Databases",
+      "teacher": "Brian Holt",
+      "description": "Learn how to use databases and store data in a structured way!",
+      "duration": "7h 4m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "javascript-hard-parts",
+      "title": "JavaScript, The Hard Parts",
+      "teacher": "Will Sentance",
+      "description": "This course provides an in-depth look at key JavaScript concepts like functions, callbacks, closures, and asynchronous programming, along with object-oriented programming using prototypes and classes. Through practical examples and hands-on exercises, you’ll learn how to write efficient, scalable code for real-world applications.",
+      "duration": "6h 41m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "linux-and-cli",
+      "title": "Linux and the Command Line",
+      "teacher": "Brian Holt",
+      "description": "Learn how to use the command line to automate tasks and manage your computer!",
+      "duration": "6h 48m",
+      "level": "intermediate",
+      "category": [
+        "linux",
+        "cli"
+      ]
+    },
+    {
+      "id": "ml-with-tensorflowjs",
+      "title": "Machine Learning with TensorflowJS",
+      "teacher": "Charlie Gerard",
+      "description": "Learn how to use machine learning to build applications with JavaScript!",
+      "duration": "4h 41m",
+      "level": "intermediate",
+      "category": [
+        "ml",
+        "tensorflowjs"
+      ]
+    },
+    {
+      "id": "production-angular",
+      "title": "Production Grade Angular",
+      "teacher": "Lukas Ruebbelke",
+      "description": "Use the latest Angular features to build high-performance, enterprise-grade applications!",
+      "duration": "6h 57m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "reactive-angular-ngrx",
+      "title": "Reactive Angular with NgRX",
+      "teacher": "Lukas Ruebbelke",
+      "description": "Learn how to make a production-ready Angular app with NgRX!",
+      "duration": "3h 14m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "server-side-graphql",
+      "title": "Server-Side GraphQL",
+      "teacher": "Scott Moss",
+      "description": "Learn how to build GraphQL APIs with Next.js!",
+      "duration": "3h 32m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "typescript-5-fundamentals",
+      "title": "TypeScript 5+ Fundamentals",
+      "teacher": "Mike North",
+      "description": "TypeScript reduces bugs and improves maintainability when writing JavaScript. Learn all the key Typescript features such as variable typing, function signatures, union and intersection types, type aliases, and generics.",
+      "duration": "5h 12m",
+      "level": "intermediate",
+      "category": [
+        "typescript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "vanilla-js-no-framework",
+      "title": "Vanilla JS, You Might Not Need a Framework",
+      "teacher": "Maximiliano Firtman",
+      "description": "Gain speed and simplicity in writing web apps by taking a \"vanilla\" approach! See how you can build rich web apps and websites without depending on libraries or frameworks, using only the core JavaScript language.",
+      "duration": "5h 52m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "web-performance",
+      "title": "Web Performance Fundamentals",
+      "teacher": "Todd Gardner",
+      "description": "Learn how to optimize your web apps for speed and performance!",
+      "duration": "3h 50m",
+      "level": "intermediate",
+      "category": [
+        "javascript",
+        "frontend"
+      ]
+    }
+  ],
+  "coursesByTopic": {
+    "Computer Science Fundamentals": [
+      "Algorithms and Data Structures"
+    ],
+    "JavaScript & Web Development": [
+      "Angular 17+ Fundamentals",
+      "Astro for Fast Website Development",
+      "Complete Intro to React",
+      "CSS Layout and Grid",
+      "Deep JavaScript Foundations",
+      "DevOps for Devs",
+      "Frontend System Design",
+      "Full Stack for Frontend Developers",
+      "Functional JavaScript",
+      "Intro to Databases",
+      "JavaScript, The Hard Parts",
+      "A Tour of JavaScript & React Patterns",
+      "Production Grade Angular",
+      "Reactive Angular with NgRX",
+      "Server-Side GraphQL",
+      "Vanilla JS, You Might Not Need a Framework",
+      "Web Performance Fundamentals"
+    ],
+    "Other": [
+      "Linux and the Command Line",
+      "Machine Learning with TensorflowJS"
+    ],
+    "TypeScript": [
+      "TypeScript 5+ Fundamentals"
+    ]
+  }
+}
