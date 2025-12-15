@@ -431,7 +431,7 @@ const PDFDynamic: React.FC<PDFDynamicProps> = ({ content }) => {
                 </View>
                 <View style={styles.itemSubheadingRow}>
                   <Text style={styles.itemSubheading}>
-                    {professionalExperience.startDate}—
+                    {professionalExperience.startDate}-
                     {professionalExperience.endDate
                       ? professionalExperience.endDate
                       : 'Current'}
