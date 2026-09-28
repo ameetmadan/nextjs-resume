@@ -1,15 +1,9 @@
-import { PrivateField, personal } from '@content';
+import { personal } from '@content';
 import { IdentificationIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { SectionHeading } from '../SectionHeading/SectionHeading';
 
-interface ContactInformationProps {
-  privateInformation?: PrivateField[];
-}
-
-export const ContactInformation: React.FC<ContactInformationProps> = ({
-  privateInformation,
-}) => {
+export const ContactInformation: React.FC = () => {
   return (
     <article>
       <SectionHeading
@@ -23,13 +17,18 @@ export const ContactInformation: React.FC<ContactInformationProps> = ({
           <strong>Location: </strong> {personal.location}
         </li>
         <li>
-          <strong>Phone number: </strong> {personal.phoneNumber}
+          <strong>Phone number: </strong>{' '}
+          {personal.phoneNumber && (
+            <a href={`tel:${personal.phoneNumber.replace(/\s+/g, '')}`}>
+              {personal.phoneNumber}
+            </a>
+          )}
         </li>
-        {/* <li>
-          <strong>Address: </strong> {personal.address}
-        </li> */}
         <li>
-          <strong>Email: </strong> {personal.email}
+          <strong>Email: </strong>{' '}
+          {personal.email && (
+            <a href={`mailto:${personal.email}`}>{personal.email}</a>
+          )}
         </li>
         {personal.birthday && (
           <li>
@@ -51,14 +50,6 @@ export const ContactInformation: React.FC<ContactInformationProps> = ({
             <strong>Civil Status: </strong> {personal.civilStatus}
           </li>
         )}
-
-        {/* private access required */}
-        {/* {privateInformation?.map((privateField) => (
-          <li className="mt-3" key={privateField.label}>
-            <strong>{privateField.label}</strong>{' '}
-            <div dangerouslySetInnerHTML={{ __html: privateField.body.html }} />
-          </li>
-        ))} */}
       </ul>
     </article>
   );

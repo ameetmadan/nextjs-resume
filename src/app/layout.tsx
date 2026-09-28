@@ -6,7 +6,6 @@ import resumeConfig from '../../edit-me/config/resumeConfig';
 
 // STYLES
 import { personal } from '@content';
-import { headers } from 'next/headers';
 import { protocol, vercelURL } from 'src/helpers/env';
 import { fullName } from 'src/helpers/utils';
 import { twMerge } from 'tailwind-merge';
@@ -29,8 +28,7 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const host = headers().get('host');
-  const baseURL = `${protocol}://${host || vercelURL}`;
+  const baseURL = `${protocol}://${vercelURL}`;
   const siteName = `${fullName} Professional Résumé`;
   const title = `Résumé | ${fullName}`;
   const description = `Professional résumé for ${fullName}.`;
