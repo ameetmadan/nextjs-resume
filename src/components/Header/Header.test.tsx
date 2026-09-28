@@ -15,7 +15,10 @@ describe('<Header />', () => {
       screen.getByRole('heading', { level: 2, name: personal.title }),
     ).toBeDefined();
     expect(
-      screen.getByRole('link', { name: /view or download pdf/i }),
+      screen.getByRole('link', { name: /download fullstack cv/i }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole('link', { name: /download frontend cv/i }),
     ).toBeDefined();
   });
 
