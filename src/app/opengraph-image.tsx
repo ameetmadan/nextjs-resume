@@ -1,3 +1,4 @@
+import { personal } from '@content';
 import resumeConfig from 'edit-me/config/resumeConfig';
 import { ImageResponse } from 'next/og';
 import { getAccentColor, getNeutralColor } from 'src/helpers/colors';
@@ -45,7 +46,7 @@ export default async function og() {
             }}
             tw="text-6xl"
           >
-            Professional Résumé
+            {personal.title}
           </div>
           <div
             style={{ color: getAccentColor(12, theme) }}
