@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import AboutMe from 'src/components/Articles/AboutMe';
 import Achievements from 'src/components/Articles/Achievements';
 import { AdditionalInfo } from 'src/components/Articles/AdditionalInfo';
@@ -11,6 +12,11 @@ import React from 'react';
 const privateKey = process.env.PRIVATE_KEY;
 
 const Page: React.FC<PageProps> = async ({ params }) => {
+  // fail closed: no key configured, or the URL's secret doesn't match it
+  if (!privateKey || params.secret !== privateKey) {
+    notFound();
+  }
+
   return (
     <>
       <Header />
