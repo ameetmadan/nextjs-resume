@@ -21,14 +21,22 @@ export const Header: React.FC<HeaderProps> = () => {
           {/*  text="Download full dossier"*/}
           {/*  link={`/api/dossier`}*/}
           {/*/>*/}
-          <PDFDownloadButton
-            text="Download fullstack CV"
-            link={`/api/pdf/fullstack`}
-          />
-          <PDFDownloadButton
-            text="Download frontend CV"
-            link={`/api/pdf/frontend`}
-          />
+          <div className="flex flex-col items-center gap-2 md:items-end">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <PDFDownloadButton
+                text="Download fullstack CV"
+                link={`/api/pdf/fullstack`}
+              />
+              <PDFDownloadButton
+                text="Download frontend CV"
+                link={`/api/pdf/frontend`}
+              />
+            </div>
+            <p className="text-sm text-neutral-11">
+              Two versions available — pick whichever matches the role
+              you&apos;re looking at.
+            </p>
+          </div>
         </div>
       </div>
     </div>
