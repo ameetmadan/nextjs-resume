@@ -23,13 +23,21 @@ export const ContactInformation: React.FC<ContactInformationProps> = ({
           <strong>Location: </strong> {personal.location}
         </li>
         <li>
-          <strong>Phone number: </strong> {personal.phoneNumber}
+          <strong>Phone number: </strong>{' '}
+          {personal.phoneNumber && (
+            <a href={`tel:${personal.phoneNumber.replace(/\s+/g, '')}`}>
+              {personal.phoneNumber}
+            </a>
+          )}
         </li>
         {/* <li>
           <strong>Address: </strong> {personal.address}
         </li> */}
         <li>
-          <strong>Email: </strong> {personal.email}
+          <strong>Email: </strong>{' '}
+          {personal.email && (
+            <a href={`mailto:${personal.email}`}>{personal.email}</a>
+          )}
         </li>
         {personal.birthday && (
           <li>
