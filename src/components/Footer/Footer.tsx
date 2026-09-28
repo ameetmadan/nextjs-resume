@@ -31,15 +31,6 @@ export const Footer: React.FC = () => {
           Copyright © {new Date().getFullYear()} {fullName}
         </div>
 
-        {/*
-          This résumé was generated with{' '}
-          <a className="link" href="https://nextjs.org/">
-            Next.js
-          </a>{' '}
-          and deployed on{' '}
-          <a className="link" href="https://vercel.com/">
-            Vercel
-          </a> */}
         <div className="mt-1 text-sm">
           Made with{' '}
           <a

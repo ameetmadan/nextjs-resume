@@ -17,10 +17,6 @@ export const Header: React.FC<HeaderProps> = () => {
               {personal.title}
             </Heading>
           </div>
-          {/*<PDFDownloadButton*/}
-          {/*  text="Download full dossier"*/}
-          {/*  link={`/api/dossier`}*/}
-          {/*/>*/}
           <PDFDownloadButton
             text="Download fullstack CV"
             link={`/api/pdf/fullstack`}

@@ -1,7 +1,6 @@
 import React from 'react';
 import AboutMe from 'src/components/Articles/AboutMe';
 import Achievements from 'src/components/Articles/Achievements';
-import { AdditionalInfo } from 'src/components/Articles/AdditionalInfo';
 import { ContactInformation } from 'src/components/Articles/ContactInformation';
 import Professional from 'src/components/Articles/Professional';
 import Skills from 'src/components/Articles/Skills';
@@ -35,10 +34,6 @@ const Page: React.FC<PageProps> = () => {
         <div className="mt-8">
           <Achievements />
         </div>
-
-        {/* <div className="mt-12">
-          <AdditionalInfo />
-        </div> */}
       </div>
 
       <Footer />
