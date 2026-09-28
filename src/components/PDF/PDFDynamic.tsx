@@ -260,7 +260,7 @@ const PDFDynamic: React.FC<PDFDynamicProps> = ({ content }) => {
                 alignSelf: 'center',
                 justifyContent: 'center',
               }}
-              src="public/portrait.png"
+              src="public/portrait-pdf.jpg"
             />
             <Text style={styles.headerTitle}>{fullName}</Text>
             <Text style={styles.headerSubtitle}>{personal.title}</Text>
@@ -421,7 +421,7 @@ const PDFDynamic: React.FC<PDFDynamicProps> = ({ content }) => {
                 alignSelf: 'center',
                 justifyContent: 'center',
               }}
-              src="public/portrait.png"
+              src="public/portrait-pdf.jpg"
             />
             <Text style={styles.headerTitle}>{fullName}</Text>
             <Text style={styles.headerSubtitle}>{personal.title}</Text>
