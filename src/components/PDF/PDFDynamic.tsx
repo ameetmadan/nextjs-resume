@@ -17,6 +17,7 @@ import { Theme } from '../../../edit-me/types/Config';
 import { contrastColor } from '../../helpers/colorContrast';
 import { getAccentColor, getNeutralColor } from '../../helpers/colors';
 import { ContentData, CourseData } from '../../helpers/contentLoader';
+import { registerAlbertSans, registerJetBrainsMono } from './pdfFonts';
 import { BuildingColumns } from './Icons/BuildingColumns';
 import { CircleBriefcase } from './Icons/CircleBriefcase';
 import { CircleCheck } from './Icons/CircleCheck';
@@ -28,45 +29,9 @@ import { BookOpenIcon } from './Icons/BookOpenIcon';
 import { Hammer } from './Icons/Hammer';
 
 const theme = resumeConfig.pdfTheme;
-const albertSrc = 'https://fonts.gstatic.com/s/albertsans/v1';
-const jetbrainsSrc = 'https://fonts.gstatic.com/s/jetbrainsmono/v18';
 
-Font.register({
-  family: 'Albert Sans',
-  fonts: [
-    {
-      fontStyle: 'normal',
-      fontWeight: 400,
-      src: `${albertSrc}/i7dZIFdwYjGaAMFtZd_QA3xXSKZqhr-TenSHq5P_rI32TxAj1g.ttf`,
-    },
-    {
-      fontStyle: 'italic',
-      fontWeight: 400,
-      src: `${albertSrc}/i7dfIFdwYjGaAMFtZd_QA1Zeelmy79QJ1HOSY9AX74fybRUz1r5t.ttf`,
-    },
-    {
-      fontStyle: 'normal',
-      fontWeight: 700,
-      src: `${albertSrc}/i7dZIFdwYjGaAMFtZd_QA3xXSKZqhr-TenSHTJT_rI32TxAj1g.ttf`,
-    },
-    {
-      fontStyle: 'italic',
-      fontWeight: 700,
-      src: `${albertSrc}/i7dfIFdwYjGaAMFtZd_QA1Zeelmy79QJ1HOSY9Dw6IfybRUz1r5t.ttf`,
-    },
-  ],
-});
-
-Font.register({
-  family: 'JetBrains Mono',
-  fonts: [
-    {
-      fontStyle: 'normal',
-      fontWeight: 500,
-      src: `${jetbrainsSrc}/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.ttf`,
-    },
-  ],
-});
+registerAlbertSans();
+registerJetBrainsMono();
 
 const hyphenationCallback = (word: string) => {
   // don't hyphenate
