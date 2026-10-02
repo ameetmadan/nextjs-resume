@@ -2,7 +2,7 @@ import {
   defineDocumentType,
   defineNestedType,
   makeSource,
-} from 'contentlayer/source-files';
+} from 'contentlayer2/source-files';
 
 export const Personal = defineDocumentType(() => ({
   name: 'Personal',
@@ -30,10 +30,13 @@ export const Personal = defineDocumentType(() => ({
         'Your general location of residence, not your personal address',
       required: true,
     },
-    twitterUsername: {
+    githubUrl: {
       type: 'string',
-      description: 'Your Twitter username without the "@" symbol',
-      required: false,
+      description: 'URL for your GitHub profile',
+    },
+    linkedInUrl: {
+      type: 'string',
+      description: 'URL for your LinkedIn profile',
     },
     phoneNumber: {
       type: 'string',
@@ -92,7 +95,7 @@ export const Skill = defineDocumentType(() => ({
 
 export const SoftSkill = defineDocumentType(() => ({
   name: 'SoftSkill',
-  filePathPattern: 'softSkills/*.md',
+  filePathPattern: 'soft-skills/*.md',
   fields: {
     title: {
       type: 'string',
@@ -102,56 +105,47 @@ export const SoftSkill = defineDocumentType(() => ({
   },
 }));
 
-export const PreviousTitle = defineNestedType(() => ({
-  name: 'PreviousTitle',
+export const ProfessionalTitle = defineNestedType(() => ({
+  name: 'ProfessionalTitle',
   fields: {
     title: {
       type: 'string',
-      description: 'A previous title at this organization',
+      description: 'A title at this organization',
       required: true,
     },
     startDate: {
-      type: 'string',
-      description: 'The year when you started the position',
+      type: 'date',
+      description: 'A parsable date for when you started the role',
       required: true,
     },
     endDate: {
+      type: 'date',
+      description:
+        'A parsable date for when you ended the role, or empty if it is your current role',
+      required: false,
+    },
+    description: {
       type: 'string',
-      description: 'The year when you ended the position',
-      required: true,
+      description:
+        'A description of the work you did under this role, or your accomplishments that led to a promotion',
+      required: false,
     },
   },
 }));
 
 export const ProfessionalExperience = defineDocumentType(() => ({
   name: 'ProfessionalExperience',
-  filePathPattern: 'professionalExperiences/*.md',
+  filePathPattern: 'professional-experiences/*.md',
   fields: {
-    title: {
-      type: 'string',
-      description: 'Your most recent title at this organization',
-      required: true,
-    },
     organization: {
       type: 'string',
       description: 'The name of the company or organization you worked with',
       required: true,
     },
-    startDate: {
-      type: 'string',
-      description: 'A descriptor of when you started the position',
-      required: true,
-    },
-    endDate: {
-      type: 'string',
-      description:
-        'If you no longer work with this organization, provide a descriptor of when you ended the position',
-      required: false,
-    },
-    previousTitles: {
+    titles: {
       type: 'list',
-      of: PreviousTitle,
-      required: false,
+      of: ProfessionalTitle,
+      required: true,
     },
   },
 }));
@@ -180,27 +174,30 @@ export const Achievement = defineDocumentType(() => ({
   },
 }));
 
-export const AdditionalInfo = defineDocumentType(() => ({
-  name: 'AdditionalInfo',
-  filePathPattern: 'additionalInfo.md',
-  isSingleton: true,
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The name of the additional info section',
-      required: true,
-    },
-  },
-}));
-
 export const PrivateField = defineDocumentType(() => ({
   name: 'PrivateField',
-  filePathPattern: 'privateFields/*.md',
+  filePathPattern: 'private-fields/*.md',
   fields: {
     label: {
       type: 'string',
       description: 'A label to describe the private field',
       required: true,
+    },
+  },
+}));
+
+export const Salary = defineDocumentType(() => ({
+  name: 'Salary',
+  filePathPattern: 'salary.md',
+  isSingleton: true,
+  fields: {
+    currentSalary: {
+      type: 'string',
+      description: 'Your current salary (only visible in private mode)',
+    },
+    desiredSalary: {
+      type: 'string',
+      description: 'Your desired salary (only visible in private mode)',
     },
   },
 }));
@@ -277,6 +274,7 @@ export default makeSource({
     ProfessionalExperience,
     Achievement,
     PrivateField,
+    Salary,
     Letter,
   ],
 });
