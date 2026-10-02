@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
-import { vercelURL } from 'src/helpers/env';
+import { deployURL } from '@src/helpers/environment';
 
-const baseURL = `https://${vercelURL}`;
+const baseURL = `https://${deployURL ?? ''}`;
 
 // Update this whenever résumé content meaningfully changes. Using
 // new Date() here would report "changed" on every deploy, even ones

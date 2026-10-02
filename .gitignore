@@ -46,10 +46,9 @@ yarn-error.log*
 **/public/worker-*.js
 
 # other
-.vscode
 tsconfig.tsbuildinfo
 
 # Contentlayer
 .contentlayer
+# IDE
 .idea
-.vscode

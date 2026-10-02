@@ -3,7 +3,6 @@ givenName: Ameet
 familyName: Madan
 title: Frontend Software Engineer
 location: Zurich, Switzerland
-twitterUsername: stacy_fakename
 phoneNumber: +41 78 850 51 66
 # birthday: 05.12.1996
 # address: Rickenstrasse 10, 8733 Eschenbach SG

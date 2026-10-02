@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,7 +12,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
@@ -28,25 +23,22 @@
     ],
     "strictNullChecks": true,
     "paths": {
-      "@content": [
-        "./.contentlayer/generated"
-      ],
-      "@test-utils": [
-        "./src/test-utils.tsx"
-      ]
+      "@config/*": ["./edit-me/config/*"],
+      "@content": ["./.contentlayer/generated"],
+      "@test-utils": ["./src/test-utilities.tsx"],
+      "@icons": ["./src/components/icons/index.ts"],
+      "@src/*": ["./src/*"],
+      "@edit-me/*": ["./edit-me/*"]
     },
-    "types": [
-      "bun-types"
-    ]
+    "types": ["bun-types"]
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
+    ".next/dev/types/**/*.ts"
   ]
 }

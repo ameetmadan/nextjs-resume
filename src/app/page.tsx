@@ -1,44 +1,23 @@
-import React from 'react';
-import AboutMe from 'src/components/Articles/AboutMe';
-import Achievements from 'src/components/Articles/Achievements';
-import { ContactInformation } from 'src/components/Articles/ContactInformation';
-import Professional from 'src/components/Articles/Professional';
-import Skills from 'src/components/Articles/Skills';
-import SoftSkills from 'src/components/Articles/SoftSkills';
-import { Footer } from 'src/components/Footer/Footer';
-import { Header } from 'src/components/Header/Header';
+import { ReactNode } from 'react';
+import AboutMe from '@src/components/articles/about-me';
+import Achievements from '@src/components/articles/achievements';
+import ContactInformation from '@src/components/articles/contact-info';
+import Professional from '@src/components/articles/professional';
+import Skills from '@src/components/articles/skills';
+import SoftSkills from '@src/components/articles/soft-skills';
 
-const Page: React.FC<PageProps> = () => {
+export default function Page(): ReactNode {
   return (
-    <>
-      <Header />
-
-      <div className="container">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <AboutMe />
-          <ContactInformation />
-        </div>
-
-        <div className="mt-12">
-          <Skills />
-        </div>
-
-        <div className="mt-12">
-          <SoftSkills />
-        </div>
-
-        <div className="mt-12">
-          <Professional />
-        </div>
-
-        <div className="mt-8">
-          <Achievements />
-        </div>
+    <div className="container space-y-12">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+        <AboutMe />
+        <ContactInformation />
+        <Skills />
+        <SoftSkills />
       </div>
 
-      <Footer />
-    </>
+      <Professional />
+      <Achievements />
+    </div>
   );
-};
-
-export default Page;
+}

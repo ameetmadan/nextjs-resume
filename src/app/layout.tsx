@@ -1,19 +1,14 @@
-import * as colors from '@radix-ui/colors';
-import { Metadata, Viewport } from 'next';
-import { Albert_Sans, JetBrains_Mono } from 'next/font/google';
-import { PropsWithChildren } from 'react';
-import resumeConfig from '../../edit-me/config/resumeConfig';
-
-// STYLES
 import { personal } from '@content';
-import { protocol, vercelURL } from 'src/helpers/env';
-import { fullName } from 'src/helpers/utils';
-import { twMerge } from 'tailwind-merge';
-import { ThemeSetting } from '../../edit-me/types/Config';
-import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
-
-const accentColor = resumeConfig.accentColor;
+import { Metadata, Viewport } from 'next';
+import { ThemeProvider } from 'next-themes';
+import { Albert_Sans, JetBrains_Mono } from 'next/font/google';
+import { PropsWithChildren, ReactNode } from 'react';
+import Footer from '@src/components/footer/footer';
+import Header from '@src/components/header/header';
+import { deployURL, protocol } from '@src/helpers/environment';
+import { cn, fullName } from '@src/helpers/utilities';
+import './styles/globals.css';
 
 const albert = Albert_Sans({
   display: 'swap',
@@ -28,19 +23,23 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const baseURL = `${protocol}://${vercelURL}`;
+  // headers() would opt the whole route into per-request rendering, but the
+  // résumé content never changes between requests, so derive the base URL
+  // from the deploy environment instead and keep the page static. Local
+  // builds have no deploy URL, and `new URL()` below needs a valid host.
+  const baseURL = `${protocol}://${deployURL ?? 'localhost:3000'}`;
   const siteName = `${fullName} Professional Résumé`;
   const title = `Résumé | ${fullName}`;
   const description = `Professional résumé for ${fullName}.`;
 
   return {
-    metadataBase: new URL(baseURL),
     applicationName: siteName,
     authors: { name: fullName },
     creator: fullName,
     description,
     generator: 'Next.js',
     keywords: ['resume', fullName, 'next.js', 'pdf'],
+    metadataBase: new URL(baseURL),
     openGraph: {
       type: 'profile',
       firstName: personal.givenName,
@@ -62,27 +61,26 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export const viewport: Viewport = {
   initialScale: 1,
-  // @ts-ignore
-  themeColor: colors[accentColor][`${accentColor}9`],
   width: 'device-width',
 };
 
-const RootLayout: React.FC<PropsWithChildren> = async ({ children }) => {
+export default function RootLayout({ children }: PropsWithChildren): ReactNode {
   return (
     <html
       lang="en"
-      className={twMerge(
-        albert.variable,
-        jetBrainsMono.variable,
-        resumeConfig.appTheme === ThemeSetting.Dark && 'dark',
-      )}
+      className={cn(albert.variable, jetBrainsMono.variable)}
+      suppressHydrationWarning
     >
       <body className="bg-neutral-1 text-neutral-12 selection:bg-accent-11 selection:text-neutral-1">
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="space-y-12">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
+        <Analytics />
       </body>
-      <Analytics />
     </html>
   );
-};
-
-export default RootLayout;
+}

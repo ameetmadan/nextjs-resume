@@ -1,0 +1,594 @@
+/* eslint-disable jsx-a11y/alt-text */
+import { resumeConfig } from '@config/resume-config';
+import {
+  Document,
+  Font,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from '@react-pdf/renderer';
+import { ColorMode } from '@strum/colors';
+import { ComponentProps, Fragment, ReactNode } from 'react';
+import Html from 'react-pdf-html';
+import { htmlRenderers } from '@src/components/pdf/html-renderers';
+import BuildingColumns from '@src/components/pdf/icons/building-columns';
+import CircleBriefcase from '@src/components/pdf/icons/circle-briefcase';
+import CircleCheck from '@src/components/pdf/icons/circle-check';
+import CircleGraduationCap from '@src/components/pdf/icons/circle-graduation-cap';
+import CircleIdCard from '@src/components/pdf/icons/circle-id-card';
+import CircleUser from '@src/components/pdf/icons/circle-user';
+import {
+  registerAlbertSans,
+  registerJetBrainsMono,
+} from '@src/components/pdf/pdf-fonts';
+import { contrastColor } from '@src/helpers/color-contrast';
+import { getAccentColor, getNeutralColor } from '@src/helpers/colors';
+import { ContentData } from '@src/helpers/content-loader';
+
+const theme = resumeConfig.pdfTheme;
+
+registerAlbertSans();
+registerJetBrainsMono();
+
+const hyphenationCallback = (word: string) => {
+  // don't hyphenate
+  return [word];
+};
+
+Font.registerHyphenationCallback(hyphenationCallback);
+
+Font.registerEmojiSource({
+  format: 'png',
+  url: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/',
+});
+
+const fontSizes = {
+  xl: 20,
+  l: 18,
+  m: 14,
+  s: 13,
+  xs: 12,
+  xxs: 10,
+};
+
+const spacers = {
+  1: '6px',
+  2: '8px',
+  3: '10px',
+  4: '12px',
+  5: '14px',
+  6: '16px',
+};
+
+// react-pdf 4 doesn't inherit lineHeight from <Page> through <View>s, so any
+// View or Text that holds heading text sets its own to keep the original
+// spacing (otherwise bold headings overlap their neighbours)
+const styles = StyleSheet.create({
+  page: {
+    alignItems: 'stretch',
+    backgroundColor: getNeutralColor(1, theme),
+    color: getNeutralColor(12, theme),
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    fontFamily: 'Albert Sans',
+    fontSize: fontSizes.xxs,
+    justifyContent: 'flex-start',
+    lineHeight: 1.3,
+  },
+  sidebar: {
+    alignSelf: 'stretch',
+    backgroundColor: getNeutralColor(3, theme),
+    display: 'flex',
+    color: getNeutralColor(12, theme),
+    flexBasis: '30%',
+    flexDirection: 'column',
+    flexGrow: 0,
+    flexShrink: 1,
+  },
+  sidebarContent: { padding: spacers[4] },
+  header: {
+    backgroundColor:
+      theme === ColorMode.Dark
+        ? getNeutralColor(2, theme)
+        : getAccentColor(9, theme),
+    color: contrastColor,
+    padding: `${spacers[6]} ${spacers[4]}`,
+    textAlign: 'center',
+  },
+  headerTitle: { fontSize: fontSizes.xl, fontWeight: 700, lineHeight: 1.3 },
+  headerSubtitle: { fontSize: fontSizes.m, fontWeight: 700, lineHeight: 1.3 },
+  main: {
+    alignSelf: 'stretch',
+    display: 'flex',
+    flexBasis: '70%',
+    flexDirection: 'column',
+    flexGrow: 1,
+    flexShrink: 0,
+    padding: spacers[4],
+  },
+  section: { marginBottom: spacers[3] },
+  sectionHeading: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: fontSizes.m,
+    fontWeight: 700,
+    lineHeight: 1.3,
+    gap: spacers[1],
+  },
+  sectionHeadingMarginBottom: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: fontSizes.m,
+    fontWeight: 700,
+    lineHeight: 1.3,
+    gap: spacers[1],
+    marginBottom: '5px',
+  },
+  sectionHeadingNonHTML: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: fontSizes.m,
+    fontWeight: 700,
+    lineHeight: 1.3,
+    gap: spacers[1],
+    marginBottom: spacers[1],
+  },
+  sectionHeadingIcon: {
+    height: fontSizes.m,
+    marginRight: spacers[1],
+    width: fontSizes.m,
+  },
+  sectionHeadingStars: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  sectionParagraph: {
+    fontWeight: 400,
+    margin: 0,
+  },
+  itemHeading: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: fontSizes.s,
+    fontWeight: 700,
+    lineHeight: 1.3,
+    gap: spacers[1],
+    marginBottom: spacers[1],
+    marginTop: spacers[2],
+  },
+  itemSubheadingRow: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacers[1],
+    marginBottom: spacers[1],
+  },
+  itemSubheadingSubRow: {
+    display: 'flex',
+    flex: '0 0 100%',
+  },
+  itemSubheading: {
+    fontSize: fontSizes.xxs,
+  },
+  itemSubheadingItalic: {
+    fontSize: fontSizes.xxs,
+    fontStyle: 'italic',
+  },
+  professionalTitle: {
+    backgroundColor: getNeutralColor(12, theme),
+    borderRadius: '3px',
+    color: getNeutralColor(1, theme),
+    fontWeight: 700,
+    paddingHorizontal: spacers[1],
+  },
+  bold: { fontWeight: 700 },
+  flexColumn: { display: 'flex', flexDirection: 'column' },
+  flexRow: { alignItems: 'center', display: 'flex', flexDirection: 'row' },
+  flexRowMarginBottom: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: '5px',
+  },
+  flexRowAlignStart: {
+    alignItems: 'flex-start',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  a: {
+    color: getAccentColor(11, theme),
+    textDecoration: 'underline',
+  },
+  list: {
+    marginTop: spacers[2],
+  },
+  code: {
+    backgroundColor: getNeutralColor(4, theme),
+    borderRadius: '3px',
+    fontFamily: 'JetBrains Mono',
+    fontWeight: 500,
+    paddingHorizontal: spacers[2],
+  },
+});
+
+const htmlProps: Omit<ComponentProps<typeof Html>, 'children'> = {
+  renderers: htmlRenderers,
+  style: { fontSize: fontSizes.xxs },
+  stylesheet: {
+    a: styles.a,
+    p: styles.sectionParagraph,
+    ul: styles.list,
+    ol: styles.list,
+    code: styles.code,
+  },
+};
+
+interface PDFDynamicProps {
+  content: ContentData;
+}
+
+const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
+  const {
+    personal,
+    allProfessionalExperiences,
+    allAchievements,
+    allCourses,
+    allProjects,
+    preferredStack,
+  } = content;
+  const fullName = `${personal.givenName} ${personal.familyName}`;
+  const year = new Date().getFullYear();
+
+  return (
+    <Document author={fullName} title={`Resumé for ${fullName}, ${year}`}>
+      <Page size="LETTER" style={styles.page}>
+        <View style={styles.sidebar}>
+          <View style={styles.header}>
+            <Image
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 50,
+                marginBottom: 5,
+                objectFit: 'cover',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}
+              src="public/portrait-pdf.jpg"
+            />
+            <Text style={styles.headerTitle}>{fullName}</Text>
+            <Text style={styles.headerSubtitle}>{personal.title}</Text>
+          </View>
+          <View style={styles.sidebarContent}>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>About Me</Text>
+              </View>
+              <Html {...htmlProps}>{personal.body.html}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>Hobbies and Interests</Text>
+              </View>
+              <Html {...htmlProps}>{personal.hobbies ?? ''}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleIdCard size={fontSizes.m} />
+                <Text>Contact Information</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Location:</Text>
+                <Text>&nbsp;{personal.location}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Phone number:</Text>
+                <Text>&nbsp;{personal.phoneNumber}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Email:</Text>
+                <Text>&nbsp;{personal.email}</Text>
+              </View>
+              {personal.birthday && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Birthday:</Text>
+                  <Text>&nbsp;{personal.birthday}</Text>
+                </View>
+              )}
+              {personal.languages && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Languages:</Text>
+                  <Text>&nbsp;{personal.languages}</Text>
+                </View>
+              )}
+              {personal.nationality && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Nationality:</Text>
+                  <Text>&nbsp;{personal.nationality}</Text>
+                </View>
+              )}
+              {personal.civilStatus && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Civil Status:</Text>
+                  <Text>&nbsp;{personal.civilStatus}</Text>
+                </View>
+              )}
+            </View>
+            {/*<View style={styles.section}>
+              <View style={styles.sectionHeading}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Technical Skills</Text>
+              </View>
+              {allSkills.map((skill, skillIndex) => (
+                <View key={skill._id}>
+                  <View style={styles.itemHeading}>
+                    <View style={styles.sectionHeadingStars}>
+                      {Array.from(Array(allSkills.length - skillIndex)).map(
+                        (star, starIndex) => (
+                          <Star key={starIndex} size={fontSizes.xxs} />
+                        ),
+                      )}
+                    </View>
+                    <Text style={styles.bold}>{skill.title}</Text>
+                  </View>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))} 
+            </View>*/}
+            {preferredStack && preferredStack.length > 0 && (
+              <View style={styles.section}>
+                <View style={styles.sectionHeadingNonHTML}>
+                  <CircleCheck size={fontSizes.m} />
+                  <Text>Preferred Stack</Text>
+                </View>
+                {preferredStack.map((item, index) => (
+                  <View key={index} style={styles.flexRowMarginBottom}>
+                    <Text style={styles.bold}>{item.name}</Text>
+                    <Text>&nbsp;• {item.category}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+            {/* <View style={styles.section}>
+                </View>
+                {preferredStack.map((item, index) => (
+                  <View key={index} style={styles.flexRowMarginBottom}>
+                    <Text style={styles.bold}>{item.name}</Text>
+                    <Text>&nbsp;• {item.category}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+            {/* <View style={styles.section}>
+              <View style={styles.sectionHeadingMarginBottom}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Soft Skills</Text>
+              </View>
+              {allSoftSkills.map((skill) => (
+                <View key={skill._id}>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))}
+            </View> */}
+          </View>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.section}>
+            <View style={styles.sectionHeading}>
+              <CircleBriefcase size={fontSizes.m} />
+              <Text>Professional Experience</Text>
+            </View>
+            {allProfessionalExperiences.map((professionalExperience) => (
+              <View key={professionalExperience._id}>
+                {professionalExperience.titles.map((title, titleIndex) => (
+                  <Fragment key={title.title}>
+                    <View style={styles.itemHeading}>
+                      <Text style={styles.professionalTitle}>
+                        {title.title}
+                      </Text>
+                      {titleIndex === 0 && (
+                        <Text>
+                          &nbsp;at {professionalExperience.organization}
+                        </Text>
+                      )}
+                    </View>
+                    <View style={styles.itemSubheadingRow}>
+                      <Text style={styles.itemSubheading}>
+                        {title.startDate}-{title.endDate ?? 'Present'}
+                      </Text>
+                    </View>
+                  </Fragment>
+                ))}
+                <Html {...htmlProps}>{professionalExperience.body.html}</Html>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Page>
+      <Page size="LETTER" style={styles.page}>
+        <View style={styles.sidebar}>
+          <View style={styles.header}>
+            <Image
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 50,
+                marginBottom: 5,
+                objectFit: 'cover',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}
+              src="public/portrait-pdf.jpg"
+            />
+            <Text style={styles.headerTitle}>{fullName}</Text>
+            <Text style={styles.headerSubtitle}>{personal.title}</Text>
+          </View>
+          <View style={styles.sidebarContent}>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>About Me</Text>
+              </View>
+              <Html {...htmlProps}>{personal.body.html}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleUser size={fontSizes.m} />
+                <Text>Hobbies and Interests</Text>
+              </View>
+              <Html {...htmlProps}>{personal.hobbies ?? ''}</Html>
+            </View>
+            <View style={styles.section}>
+              <View style={styles.sectionHeadingNonHTML}>
+                <CircleIdCard size={fontSizes.m} />
+                <Text>Contact Information</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Location:</Text>
+                <Text>&nbsp;{personal.location}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Phone number:</Text>
+                <Text>&nbsp;{personal.phoneNumber}</Text>
+              </View>
+              <View style={styles.flexRow}>
+                <Text style={styles.bold}>Email:</Text>
+                <Text>&nbsp;{personal.email}</Text>
+              </View>
+              {personal.birthday && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Birthday:</Text>
+                  <Text>&nbsp;{personal.birthday}</Text>
+                </View>
+              )}
+              {personal.languages && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Languages:</Text>
+                  <Text>&nbsp;{personal.languages}</Text>
+                </View>
+              )}
+              {personal.nationality && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Nationality:</Text>
+                  <Text>&nbsp;{personal.nationality}</Text>
+                </View>
+              )}
+              {personal.civilStatus && (
+                <View style={styles.flexRow}>
+                  <Text style={styles.bold}>Civil Status:</Text>
+                  <Text>&nbsp;{personal.civilStatus}</Text>
+                </View>
+              )}
+            </View>
+            {/* <View style={styles.section}>
+              <View style={styles.sectionHeading}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Technical Skills</Text>
+              </View>
+              {/* {allSkills.map((skill, skillIndex) => (
+                <View key={skill._id}>
+                  <View style={styles.itemHeading}>
+                    <View style={styles.sectionHeadingStars}>
+                      {Array.from(Array(allSkills.length - skillIndex)).map(
+                        (star, starIndex) => (
+                          <Star key={starIndex} size={fontSizes.xxs} />
+                        ),
+                      )}
+                    </View>
+                    <Text style={styles.bold}>{skill.title}</Text>
+                  </View>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))} 
+            </View> */}
+            {preferredStack && preferredStack.length > 0 && (
+              <View style={styles.section}>
+                <View style={styles.sectionHeadingNonHTML}>
+                  <CircleCheck size={fontSizes.m} />
+                  <Text>Preferred Stack</Text>
+                </View>
+                {preferredStack.map((item, index) => (
+                  <View key={index} style={styles.flexRowMarginBottom}>
+                    <Text style={styles.bold}>{item.name}</Text>
+                    <Text>&nbsp;• {item.category}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+            {/* <View style={styles.section}>
+              <View style={styles.sectionHeadingMarginBottom}>
+                <CircleCheck size={fontSizes.m} />
+                <Text>Soft Skills</Text>
+              </View>
+              {allSoftSkills.map((skill) => (
+                <View key={skill._id}>
+                  <Html {...htmlProps}>{skill.body.html}</Html>
+                </View>
+              ))}
+            </View> */}
+          </View>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.section}>
+            <View style={styles.sectionHeading}>
+              <CircleGraduationCap size={fontSizes.m} />
+              <Text>Education</Text>
+            </View>
+            {allAchievements.map((achievement) => (
+              <View key={achievement._id}>
+                <View style={styles.itemHeading}>
+                  <Text style={styles.bold}>{achievement.achievement}</Text>
+                </View>
+                <View style={styles.itemSubheadingRow}>
+                  <BuildingColumns size={fontSizes.xxs} />
+                  <Text style={styles.itemSubheading}>
+                    {achievement.organization}
+                  </Text>
+                </View>
+                <Html {...htmlProps}>{achievement.body.html}</Html>
+              </View>
+            ))}
+          </View>
+          <View style={styles.section}>
+            <View style={styles.sectionHeading}>
+              {/* <BookOpenIcon size={fontSizes.m} /> */}
+              <Text>Professional Development & Courses</Text>
+            </View>
+            {allCourses.map((course) => (
+              <Text key={course._id}>{course.title}</Text>
+            ))}
+          </View>
+          <View style={styles.section}>
+            <View style={styles.sectionHeading}>
+              {/* <Hammer size={fontSizes.m} /> */}
+              <Text>Passion projects</Text>
+            </View>
+            {allProjects.map((project) => (
+              <View key={project._id} style={{ marginBottom: spacers[2] }}>
+                <View style={styles.itemHeading}>
+                  <Text style={styles.bold}>{project.title}</Text>
+                </View>
+                <Text style={styles.sectionParagraph}>
+                  {project.description}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+};
+
+export default PDFDynamic;

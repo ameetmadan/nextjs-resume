@@ -5,6 +5,233 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.2.0] - 2026-08-01
+
+### Changed
+
+- Migrated ESLint to Oxlint
+- Migrated Prettier to Oxfmt
+- Upgraded TypeScript to v7
+  - Enabled `experimental.useTypeScriptCli` in Next.js config
+- Additional dependency updates and dev tooling updates
+
+## [8.1.6] - 2026-05-13
+
+### Changed
+
+- Dependency updates
+
+## [8.1.5] - 2026-04-15
+
+### Added
+
+- Use [knip](https://knip.dev/) to clean up unused dependencies and exports
+
+### Changed
+
+- Dependency updates
+  - Tracking [an issue](https://github.com/diegomura/react-pdf/issues/3382) with `@react-pdf/renderer` where a dependency was not published properly, added temporary override to solve installation failure
+
+## [8.1.4] - 2026-03-18
+
+### Changed
+
+- Dependency updates
+
+## [8.1.3] - 2026-01-20
+
+### Changed
+
+- Dependency updates
+
+## [8.1.2] - 2025-12-08
+
+### Changed
+
+- Dependency updates
+  - Vulnerability in [React Server Components](https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp) was already patched with a Renovate PR, so these followup updates are unrelated to the security issue
+
+## [8.1.1] - 2025-11-01
+
+### Added
+
+- Lots of additional unit tests
+- CI step to collect coverage
+
+### Changed
+
+- Update ESLint
+- Overhaul and simplify how ESLint config is implemented
+
+## [8.1.0] - 2025-10-28
+
+### Added
+
+- Custom component to add a LinkedIn icon
+- Barrel file to re-export all icons from a single location
+  - Path alias at `@icons` can be used like `import { SiGithub, SiLinkedIn } from '@icons';`
+- Add `linkedInUrl` and `gitHubUrl` fields to personal information that are always displayed in a priority position
+- Add `Salary` content type at `content/salary.md`
+  - These are optional fields that only display in private mode when present
+
+### Changed
+
+- Updated dependencies
+- Upgrade to Next.js 16
+
+## [8.0.0] - 2025-10-08
+
+### Changed
+
+- **Breaking change:** Titles now use a `date` type for `startDate` and `endDate` instead of a freeform string. The entry is parsed as an ISO date so that we can sort entries automatically. Names of the files no longer determine sort order.
+- Achievements are now sorted by `completionYear`. Names of the files no longer determine sort order.
+- Dependency upgrades
+
+### Fixed
+
+- Display `completionYear` of achievements
+
+## [7.1.8] - 2025-09-16
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.7] - 2025-08-29
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.6] - 2025-06-20
+
+### Fixed
+
+- Added `danger` alias to fix colors on `not-found` page
+
+## [7.1.5] - 2025-06-17
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.4] - 2025-05-11
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.3] - 2025-05-01
+
+### Fixed
+
+- Clean up renders after each test
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.2] - 2025-03-22
+
+### Changed
+
+- Dependency upgrades
+
+## [7.1.1] - 2025-03-13
+
+### Changed
+
+- Dependency upgrades
+
+### Fixed
+
+- Rename utility files based on ESLint rule
+
+## [7.1.0] - 2025-02-16
+
+### Changed
+
+- Dependency upgrades
+- New design for Open Graph images
+- Fonts loaded from local files
+
+## [7.0.1] - 2025-02-10
+
+### Changed
+
+- Dependency updates
+  - Fix in Strum Colors enables `0` scale if you prefer deeper contrast in dark mode
+
+## [7.0.0] - 2025-02-09
+
+### Changed
+
+- Replaced [Radix UI Colors](https://www.radix-ui.com/colors) with [Strum Colors](https://strum-colors.netlify.app/colors)
+  - These color systems are a 1-to-1 match in terms of how they're used and what colors are available, but the résumé config file does need to change slightly
+  - The colors of your chosen scale will be different with the new system
+- Use TS file for Next.js config
+- Dependency updates
+
+### Removed
+
+- LinkedIn and other Microsoft icons have been removed from Simple Icons, so this is no longer included as an example footer link
+
+## [6.1.0] - 2024-12-27
+
+### Added
+
+- Added [next-themes](https://github.com/pacocoursey/next-themes) for user control of color mode
+
+### Changed
+
+- Upgrade to [Tailwind 4.0 Beta](https://tailwindcss.com/docs/v4-beta)
+  - Most Tailwind config has moved from `tailwind.config.ts` to CSS files
+  - This change is 100% compatible with existing résumé config, but if you have modified Tailwind config for the project you will need to migrate your custom configurations to v4
+- Other dependency updates
+- Stars display in accent color in both color modes
+
+## [6.0.1] - 2024-12-11
+
+### Fixed
+
+- Styles for list items in a `<Prose>` component
+
+## [6.0.0] - 2024-12-06
+
+**Migration**
+
+[v5 to v6 Migration Guide](/docs/migration/v5-v6.md)
+
+### Added
+
+- [Syncpack](https://jamiemason.github.io/syncpack/) for dependency management
+
+### Changed
+
+- Dependency upgrades
+  - Including [React 19](https://react.dev/blog/2024/12/05/react-19)
+  - Including [Next.js 15](https://nextjs.org/blog/next-15)
+- Substantial overhaul of ESLint setup
+  - Flat config
+  - [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) for additional strict checks
+- Contentlayer schema
+  - Replace `PreviousTitle` type with a generic `ProfessionalTitle` type
+  - `titles` is now a required field on `ProfessionalExperience`
+- Substantial style updates
+  - New structure of `titles` fields allows us to create a visual timeline of your experience at a given organization
+  - Overhauled `Button` design
+
+### Removed
+
+- Yeeted most Vercel (and Twitter) requirements [for reasons](https://bsky.app/profile/colinhemphill.com/post/3laheutqa262m)
+
+## [5.1.4] - 2024-10-11
+
+### Changed
+
+- Dependency upgrades
+- Switch to the [Contentlayer fork](https://github.com/timlrx/contentlayer2) per [advice from maintainers](https://github.com/contentlayerdev/contentlayer/issues/651#issuecomment-2030335434)
+
 ## [5.1.3] - 2024-09-16
 
 ### Changed
@@ -327,7 +554,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Adds an `accentContrast` color name to determine the appropriate contrasting color for configured accent color (Radix "bright" colors like "sky" and "mint" require black foreground text)
 - `resumeConfig` is now a TypeScript file
 - `resumeConfig` now uses enums for the `accentColor` and `neutralColor` properties
-  - e.g. `accentColor: AccentColors.Blue`
+  - e.g. `accentColor: AccentColor.Blue`
 - Swap "Roboto Mono" for "JetBrains Mono" as the default monospace font
 
 ### Removed
@@ -409,7 +636,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [Vercel OG Image](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation) generator integration
+- [Image generation](https://nextjs.org/docs/app/api-reference/functions/image-response) generator integration
 
 ### Changed
 

@@ -1,11 +1,5 @@
-import {
-  SiGithub,
-  SiInstagram,
-  SiLinkedin,
-  SiNpm,
-  SiX,
-} from '@icons-pack/react-simple-icons';
-import { CMSLink } from 'edit-me/types/CMSLink';
+import { SiGithub, SiInstagram, SiLinkedIn } from '@icons';
+import { CMSLink } from '@edit-me/types/cms-link';
 
 export const links: CMSLink[] = [
   {
@@ -20,7 +14,7 @@ export const links: CMSLink[] = [
   },
   {
     href: 'https://www.linkedin.com/in/ameetmadan',
-    icon: SiLinkedin,
+    icon: SiLinkedIn,
     title: 'LinkedIn',
   },
 ];

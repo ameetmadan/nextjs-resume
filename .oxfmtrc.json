@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "sortPackageJson": true,
+  "sortTailwindcss": true,
+  "ignorePatterns": [
+    "edit-me/config/courses.json",
+    "edit-me/config/projects.json"
+  ]
+}
