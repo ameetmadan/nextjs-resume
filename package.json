@@ -16,6 +16,9 @@
     "url": "https://colinhemphill.com"
   },
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "build": "contentlayer2 build && next build",
     "build:content": "contentlayer2 build",
