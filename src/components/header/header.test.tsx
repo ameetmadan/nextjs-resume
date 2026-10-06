@@ -5,7 +5,7 @@ import { render, screen } from '@src/test-utilities';
 import Header from './header';
 
 describe('<Header />', () => {
-  test('Renders headings and PDF buttons', () => {
+  test('Renders headings and PDF button', () => {
     render(<Header />);
 
     expect(
@@ -14,12 +14,7 @@ describe('<Header />', () => {
     expect(
       screen.getByRole('heading', { level: 2, name: personal.title }),
     ).toBeDefined();
-    expect(
-      screen.getByRole('link', { name: /download fullstack cv/i }),
-    ).toBeDefined();
-    expect(
-      screen.getByRole('link', { name: /download frontend cv/i }),
-    ).toBeDefined();
+    expect(screen.getByRole('link', { name: /download cv/i })).toBeDefined();
   });
 
   test('Snapshot', () => {

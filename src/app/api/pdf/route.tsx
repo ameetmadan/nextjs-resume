@@ -8,13 +8,13 @@ import { loadContent } from '@src/helpers/content-loader';
 export const dynamic = 'force-static';
 
 export async function GET(): Promise<NextResponse> {
-  const content = await loadContent('fullstack');
+  const content = await loadContent();
   const pdfStream = await renderToBuffer(<PDFDynamic content={content} />);
 
   return new NextResponse(pdfStream as BodyInit, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'inline; filename="resume-fullstack.pdf"',
+      'Content-Disposition': 'inline; filename="resume.pdf"',
     },
   });
 }

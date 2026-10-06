@@ -6,27 +6,43 @@
     },
     {
       "name": "Next.js",
-      "category": "Frontend Framework"
-    },
-    {
-      "name": "React Native",
-      "category": "Mobile Framework"
+      "category": "React Framework"
     },
     {
       "name": "TypeScript",
       "category": "Language"
     },
     {
+      "name": "React Native",
+      "category": "Mobile Framework"
+    },
+    {
+      "name": "Node.js",
+      "category": "Backend Runtime"
+    },
+    {
+      "name": "Express",
+      "category": "Backend Framework"
+    },
+    {
+      "name": "Nest.js",
+      "category": "Backend Framework"
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "Database"
+    },
+    {
+      "name": "Prisma",
+      "category": "ORM"
+    },
+    {
+      "name": "AWS",
+      "category": "Cloud Platform"
+    },
+    {
       "name": "TailwindCSS",
       "category": "Styling"
-    },
-    {
-      "name": "React Query",
-      "category": "State Management"
-    },
-    {
-      "name": "Zustand",
-      "category": "State Management"
     }
   ]
 }
