@@ -2,8 +2,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
-export type ContentVersion = 'frontend' | 'fullstack';
-
 interface PersonalData {
   givenName: string;
   familyName: string;
@@ -96,13 +94,6 @@ export interface ContentData {
   preferredStack: PreferredStackItem[];
 }
 
-function getContentDir(version: ContentVersion): string {
-  const baseDir = process.cwd();
-  return version === 'frontend'
-    ? path.join(baseDir, 'edit-me', 'content')
-    : path.join(baseDir, 'edit-me-fullstack', 'content');
-}
-
 function parseFrontmatter(content: string): {
   // oxlint-disable-next-line typescript/no-explicit-any -- untyped YAML frontmatter
   data: Record<string, any>;
@@ -146,10 +137,8 @@ function markdownToHtml(markdown: string): string {
     .join('');
 }
 
-export async function loadContent(
-  version: ContentVersion,
-): Promise<ContentData> {
-  const contentDir = getContentDir(version);
+export async function loadContent(): Promise<ContentData> {
+  const contentDir = path.join(process.cwd(), 'edit-me', 'content');
 
   // Load personal info
   const personalPath = path.join(contentDir, 'personal.md');
@@ -302,15 +291,12 @@ export async function loadContent(
   }
 
   // Load preferred stack from preferredStack.json
-  const preferredStackJsonPath =
-    version === 'frontend'
-      ? path.join(process.cwd(), 'edit-me', 'config', 'preferredStack.json')
-      : path.join(
-          process.cwd(),
-          'edit-me-fullstack',
-          'config',
-          'preferredStack.json',
-        );
+  const preferredStackJsonPath = path.join(
+    process.cwd(),
+    'edit-me',
+    'config',
+    'preferredStack.json',
+  );
   let preferredStack: PreferredStackItem[] = [];
 
   if (fs.existsSync(preferredStackJsonPath)) {

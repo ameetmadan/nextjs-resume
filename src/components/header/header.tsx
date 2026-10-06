@@ -25,22 +25,7 @@ export default function Header(): ReactNode {
               {personal.title}
             </Heading>
           </div>
-          <div className="flex flex-col items-center gap-2 md:items-end">
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <PDFDownloadButton
-                link="/api/pdf/fullstack"
-                text="Download fullstack CV"
-              />
-              <PDFDownloadButton
-                link="/api/pdf/frontend"
-                text="Download frontend CV"
-              />
-            </div>
-            <p className="text-neutral-11 text-sm">
-              Two versions available — pick whichever matches the role
-              you&apos;re looking at.
-            </p>
-          </div>
+          <PDFDownloadButton link="/api/pdf" text="Download CV" />
           <ThemeToggle
             buttonTextVisible={false}
             labelButton="Select theme"

@@ -4,9 +4,9 @@ import PDFDownloadButton from './pdf-download-button';
 
 describe('<PDFDownloadButton />', () => {
   test('Renders a link with the given text and href', () => {
-    render(<PDFDownloadButton link="/api/pdf/frontend" text="Download CV" />);
+    render(<PDFDownloadButton link="/api/pdf" text="Download CV" />);
 
     const link = screen.getByRole('link', { name: /download cv/i });
-    expect(link.getAttribute('href')).toBe('/api/pdf/frontend');
+    expect(link.getAttribute('href')).toBe('/api/pdf');
   });
 });
