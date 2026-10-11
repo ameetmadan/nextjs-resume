@@ -119,16 +119,6 @@ const styles = StyleSheet.create({
     lineHeight: 1.3,
     gap: spacers[1],
   },
-  sectionHeadingMarginBottom: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    fontSize: fontSizes.m,
-    fontWeight: 700,
-    lineHeight: 1.3,
-    gap: spacers[1],
-    marginBottom: '5px',
-  },
   sectionHeadingNonHTML: {
     alignItems: 'center',
     display: 'flex',
@@ -138,16 +128,6 @@ const styles = StyleSheet.create({
     lineHeight: 1.3,
     gap: spacers[1],
     marginBottom: spacers[1],
-  },
-  sectionHeadingIcon: {
-    height: fontSizes.m,
-    marginRight: spacers[1],
-    width: fontSizes.m,
-  },
-  sectionHeadingStars: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
   },
   sectionParagraph: {
     fontWeight: 400,
@@ -172,16 +152,8 @@ const styles = StyleSheet.create({
     gap: spacers[1],
     marginBottom: spacers[1],
   },
-  itemSubheadingSubRow: {
-    display: 'flex',
-    flex: '0 0 100%',
-  },
   itemSubheading: {
     fontSize: fontSizes.xxs,
-  },
-  itemSubheadingItalic: {
-    fontSize: fontSizes.xxs,
-    fontStyle: 'italic',
   },
   professionalTitle: {
     backgroundColor: getNeutralColor(12, theme),
@@ -191,18 +163,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacers[1],
   },
   bold: { fontWeight: 700 },
-  flexColumn: { display: 'flex', flexDirection: 'column' },
   flexRow: { alignItems: 'center', display: 'flex', flexDirection: 'row' },
   flexRowMarginBottom: {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '5px',
-  },
-  flexRowAlignStart: {
-    alignItems: 'flex-start',
-    display: 'flex',
-    flexDirection: 'row',
   },
   a: {
     color: getAccentColor(11, theme),
@@ -325,27 +291,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
                 </View>
               )}
             </View>
-            {/*<View style={styles.section}>
-              <View style={styles.sectionHeading}>
-                <CircleCheck size={fontSizes.m} />
-                <Text>Technical Skills</Text>
-              </View>
-              {allSkills.map((skill, skillIndex) => (
-                <View key={skill._id}>
-                  <View style={styles.itemHeading}>
-                    <View style={styles.sectionHeadingStars}>
-                      {Array.from(Array(allSkills.length - skillIndex)).map(
-                        (star, starIndex) => (
-                          <Star key={starIndex} size={fontSizes.xxs} />
-                        ),
-                      )}
-                    </View>
-                    <Text style={styles.bold}>{skill.title}</Text>
-                  </View>
-                  <Html {...htmlProps}>{skill.body.html}</Html>
-                </View>
-              ))} 
-            </View>*/}
             {preferredStack && preferredStack.length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeadingNonHTML}>
@@ -360,27 +305,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
                 ))}
               </View>
             )}
-            {/* <View style={styles.section}>
-                </View>
-                {preferredStack.map((item, index) => (
-                  <View key={index} style={styles.flexRowMarginBottom}>
-                    <Text style={styles.bold}>{item.name}</Text>
-                    <Text>&nbsp;• {item.category}</Text>
-                  </View>
-                ))}
-              </View>
-            )}
-            {/* <View style={styles.section}>
-              <View style={styles.sectionHeadingMarginBottom}>
-                <CircleCheck size={fontSizes.m} />
-                <Text>Soft Skills</Text>
-              </View>
-              {allSoftSkills.map((skill) => (
-                <View key={skill._id}>
-                  <Html {...htmlProps}>{skill.body.html}</Html>
-                </View>
-              ))}
-            </View> */}
           </View>
         </View>
         <View style={styles.main}>
@@ -491,27 +415,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
                 </View>
               )}
             </View>
-            {/* <View style={styles.section}>
-              <View style={styles.sectionHeading}>
-                <CircleCheck size={fontSizes.m} />
-                <Text>Technical Skills</Text>
-              </View>
-              {/* {allSkills.map((skill, skillIndex) => (
-                <View key={skill._id}>
-                  <View style={styles.itemHeading}>
-                    <View style={styles.sectionHeadingStars}>
-                      {Array.from(Array(allSkills.length - skillIndex)).map(
-                        (star, starIndex) => (
-                          <Star key={starIndex} size={fontSizes.xxs} />
-                        ),
-                      )}
-                    </View>
-                    <Text style={styles.bold}>{skill.title}</Text>
-                  </View>
-                  <Html {...htmlProps}>{skill.body.html}</Html>
-                </View>
-              ))} 
-            </View> */}
             {preferredStack && preferredStack.length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeadingNonHTML}>
@@ -526,17 +429,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
                 ))}
               </View>
             )}
-            {/* <View style={styles.section}>
-              <View style={styles.sectionHeadingMarginBottom}>
-                <CircleCheck size={fontSizes.m} />
-                <Text>Soft Skills</Text>
-              </View>
-              {allSoftSkills.map((skill) => (
-                <View key={skill._id}>
-                  <Html {...htmlProps}>{skill.body.html}</Html>
-                </View>
-              ))}
-            </View> */}
           </View>
         </View>
         <View style={styles.main}>
@@ -562,7 +454,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
           </View>
           <View style={styles.section}>
             <View style={styles.sectionHeading}>
-              {/* <BookOpenIcon size={fontSizes.m} /> */}
               <Text>Professional Development & Courses</Text>
             </View>
             {allCourses.map((course) => (
@@ -571,7 +462,6 @@ const PDFDynamic = ({ content }: PDFDynamicProps): ReactNode => {
           </View>
           <View style={styles.section}>
             <View style={styles.sectionHeading}>
-              {/* <Hammer size={fontSizes.m} /> */}
               <Text>Passion projects</Text>
             </View>
             {allProjects.map((project) => (
