@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { asString, asStringArray, parseFrontmatter } from './frontmatter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,55 +22,6 @@ const COURSES_OUTPUT_PATH = path.join(
   'config',
   'courses.json',
 );
-
-/**
- * Parse frontmatter from MDX content
- */
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) {
-    return {};
-  }
-
-  const frontmatterStr = match[1];
-  const data = {};
-  const lines = frontmatterStr.split('\n');
-  let currentKey = null;
-  let arrayValues = [];
-
-  lines.forEach((line) => {
-    // Check if this is an array item (starts with "  - ")
-    if (line.match(/^\s{2}-\s/)) {
-      const value = line.replace(/^\s{2}-\s/, '').trim();
-      arrayValues.push(value);
-    } else if (line.includes(':')) {
-      // Save previous array if exists
-      if (currentKey && arrayValues.length > 0) {
-        data[currentKey] = arrayValues;
-        arrayValues = [];
-      }
-
-      const colonIndex = line.indexOf(':');
-      const key = line.slice(0, colonIndex).trim();
-      const value = line.slice(colonIndex + 1).trim();
-
-      currentKey = key;
-
-      // If there's a value on the same line, it's not an array
-      if (value) {
-        data[key] = value.replace(/^['"]|['"]$/g, '');
-        currentKey = null;
-      }
-    }
-  });
-
-  // Save last array if exists
-  if (currentKey && arrayValues.length > 0) {
-    data[currentKey] = arrayValues;
-  }
-
-  return data;
-}
 
 /**
  * Map category to topic group
@@ -117,16 +69,12 @@ function refreshCourses() {
 
     const course = {
       id: file.replace('.mdx', ''),
-      title: frontmatter.title || '',
-      teacher: frontmatter.teacher || '',
-      description: frontmatter.description || '',
-      duration: frontmatter.duration || '',
-      level: frontmatter.level || '',
-      category: Array.isArray(frontmatter.category)
-        ? frontmatter.category
-        : frontmatter.category
-          ? frontmatter.category.split(',').map((c) => c.trim())
-          : [],
+      title: asString(frontmatter.title, 'title', file),
+      teacher: asString(frontmatter.teacher, 'teacher', file),
+      description: asString(frontmatter.description, 'description', file),
+      duration: asString(frontmatter.duration, 'duration', file),
+      level: asString(frontmatter.level, 'level', file),
+      category: asStringArray(frontmatter.category, 'category', file),
     };
 
     courses.push(course);
