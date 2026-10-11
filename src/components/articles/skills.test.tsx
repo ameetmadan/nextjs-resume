@@ -58,6 +58,9 @@ describe('<Skills />', () => {
     const gridContainer = container.querySelector('.grid');
     expect(gridContainer).toBeDefined();
     expect(gridContainer?.className).toContain('grid-flow-row');
+    // three columns at 375px are ~96px wide, so headings overlap the next stars
+    expect(gridContainer?.className).toContain('grid-cols-1');
+    expect(gridContainer?.className).toContain('sm:grid-cols-3');
     expect(gridContainer?.className).toContain('lg:grid-flow-col');
   });
 
