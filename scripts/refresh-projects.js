@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { asString, asStringArray, parseFrontmatter } from './frontmatter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,62 +22,6 @@ const PROJECTS_OUTPUT_PATH = path.join(
   'config',
   'projects.json',
 );
-
-/**
- * Parse frontmatter from MD content
- */
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) {
-    return {};
-  }
-
-  const frontmatterStr = match[1];
-  const data = {};
-  const lines = frontmatterStr.split('\n');
-  let currentKey = null;
-  let arrayValues = [];
-
-  lines.forEach((line) => {
-    // Check if this is an array item (starts with "  - ")
-    if (line.match(/^\s{2}-\s/)) {
-      const value = line.replace(/^\s{2}-\s/, '').trim();
-      arrayValues.push(value);
-    } else if (line.includes(':')) {
-      // Save previous array if exists
-      if (currentKey && arrayValues.length > 0) {
-        data[currentKey] = arrayValues;
-        arrayValues = [];
-      }
-
-      const colonIndex = line.indexOf(':');
-      const key = line.slice(0, colonIndex).trim();
-      const value = line.slice(colonIndex + 1).trim();
-
-      currentKey = key;
-
-      // If there's a value on the same line, it's not an array
-      if (value) {
-        // Convert boolean strings to actual booleans
-        if (value === 'true') {
-          data[key] = true;
-        } else if (value === 'false') {
-          data[key] = false;
-        } else {
-          data[key] = value.replace(/^['"]|['"]$/g, '');
-        }
-        currentKey = null;
-      }
-    }
-  });
-
-  // Save last array if exists
-  if (currentKey && arrayValues.length > 0) {
-    data[currentKey] = arrayValues;
-  }
-
-  return data;
-}
 
 /**
  * Main function to refresh projects
@@ -116,14 +61,10 @@ function refreshProjects() {
 
     const project = {
       id: file.replace('.md', ''),
-      title: frontmatter.title || '',
-      description: frontmatter.description || '',
-      liveLink: frontmatter.liveLink || '',
-      tags: Array.isArray(frontmatter.tags)
-        ? frontmatter.tags
-        : frontmatter.tags
-          ? frontmatter.tags.split(',').map((t) => t.trim())
-          : [],
+      title: asString(frontmatter.title, 'title', file),
+      description: asString(frontmatter.description, 'description', file),
+      liveLink: asString(frontmatter.liveLink, 'liveLink', file),
+      tags: asStringArray(frontmatter.tags, 'tags', file),
     };
 
     projects.push(project);

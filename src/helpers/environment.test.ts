@@ -1,33 +1,42 @@
 import { describe, expect, test } from 'bun:test';
-import { deployURL, development, protocol } from './environment';
+import { resolveOrigin } from './environment';
 
-describe('environment helpers', () => {
-  test('deployURL is a string or undefined', () => {
-    expect(deployURL === undefined || typeof deployURL === 'string').toBe(true);
+describe('resolveOrigin', () => {
+  test('adds the default protocol to a bare host', () => {
+    expect(resolveOrigin('example.net', 'https')?.origin).toBe(
+      'https://example.net',
+    );
   });
 
-  test('development is a boolean', () => {
-    expect(typeof development).toBe('boolean');
+  test('keeps the scheme of a complete URL', () => {
+    expect(resolveOrigin('https://example.net', 'https')?.origin).toBe(
+      'https://example.net',
+    );
+    expect(resolveOrigin('http://example.net', 'https')?.origin).toBe(
+      'http://example.net',
+    );
   });
 
-  test('development matches NODE_ENV', () => {
-    const isDevelopment = process.env.NODE_ENV === 'development';
-    expect(development).toBe(isDevelopment);
+  test('drops any path and trailing slash', () => {
+    expect(resolveOrigin('https://example.net/resume/', 'https')?.origin).toBe(
+      'https://example.net',
+    );
   });
 
-  test('protocol is either http or https', () => {
-    expect(['http', 'https']).toContain(protocol);
+  test('keeps a port on a bare host', () => {
+    expect(resolveOrigin('localhost:3000', 'http')?.origin).toBe(
+      'http://localhost:3000',
+    );
   });
 
-  test('protocol is http when in development mode', () => {
-    if (development) {
-      expect(protocol).toBe('http');
-    }
+  test('returns undefined when nothing is configured', () => {
+    expect(resolveOrigin(undefined, 'https')).toBeUndefined();
+    expect(resolveOrigin('  ', 'https')).toBeUndefined();
   });
 
-  test('protocol is https when not in development mode', () => {
-    if (!development) {
-      expect(protocol).toBe('https');
-    }
+  test('throws on a value that cannot form a URL', () => {
+    expect(() => resolveOrigin('http://', 'https')).toThrow(
+      'Invalid deploy URL',
+    );
   });
 });

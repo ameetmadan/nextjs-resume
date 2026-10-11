@@ -6,7 +6,7 @@ import { Albert_Sans, JetBrains_Mono } from 'next/font/google';
 import { PropsWithChildren, ReactNode } from 'react';
 import Footer from '@src/components/footer/footer';
 import Header from '@src/components/header/header';
-import { deployURL, protocol } from '@src/helpers/environment';
+import { deployOrigin } from '@src/helpers/environment';
 import { cn, fullName } from '@src/helpers/utilities';
 import './styles/globals.css';
 
@@ -26,8 +26,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
   // headers() would opt the whole route into per-request rendering, but the
   // résumé content never changes between requests, so derive the base URL
   // from the deploy environment instead and keep the page static. Local
-  // builds have no deploy URL, and `new URL()` below needs a valid host.
-  const baseURL = `${protocol}://${deployURL ?? 'localhost:3000'}`;
+  // builds have no deploy URL, so fall back to the dev server.
+  const origin = deployOrigin ?? new URL('http://localhost:3000');
   const siteName = `${fullName} Professional Résumé`;
   const title = `Résumé | ${fullName}`;
   const description = `Professional résumé for ${fullName}.`;
@@ -39,7 +39,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     description,
     generator: 'Next.js',
     keywords: ['resume', fullName, 'next.js', 'pdf'],
-    metadataBase: new URL(baseURL),
+    metadataBase: origin,
     openGraph: {
       type: 'profile',
       firstName: personal.givenName,
@@ -47,7 +47,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       title,
       description,
       siteName,
-      url: baseURL,
+      url: origin.origin,
     },
     title,
     twitter: {

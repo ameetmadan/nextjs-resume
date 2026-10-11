@@ -28,6 +28,7 @@
     "format": "oxfmt",
     "knip": "knip-bun --fix --allow-remove-files",
     "lint": "oxlint --fix",
+    "lint:check": "oxlint",
     "refresh-all": "npm run refresh-courses && npm run refresh-projects",
     "refresh-courses": "node scripts/refresh-courses.js",
     "refresh-projects": "node scripts/refresh-projects.js",

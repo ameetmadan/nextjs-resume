@@ -4,7 +4,7 @@ A résumé built especially with software professionals in mind. Impress your po
 
 [See an example](https://nextjs-tailwind-resume.vercel.app/)
 
-Your résumé can also generate a secure URL that will display information not accessible on the public URL. The secure version can include private information such as email, phone number, and mailing address. You can send the private link to a potential employer or use it to generate a more complete PDF for yourself.
+Your résumé can also generate a secure URL that will display information not accessible on the public URL. The secure version can include private information such as email, phone number, and mailing address. You can send the private link to a potential employer. The PDF download is always the public version and never includes private information.
 
 ## Features
 
@@ -99,7 +99,7 @@ Regardless of where the app is deployed, it may need access to the following env
 
 ## Private Link
 
-Your project can be configured to provide a secret URL that will display more information than the public URL. This is helpful if you want to send a complete résumé to a potential employer, or if you want to generate a PDF for your own use. In this version, you can include personal information such as email, phone number, and address that you don't want visible to the general public.
+Your project can be configured to provide a secret URL that will display more information than the public URL. This is helpful if you want to send a complete résumé to a potential employer. The PDF is generated at build time from public content only, so it does not include anything from the private version. In this version, you can include personal information such as email, phone number, and address that you don't want visible to the general public.
 
 ### Setup
 
