@@ -1,33 +1,12 @@
+import {
+  Achievement,
+  Personal,
+  allAchievements as contentAchievements,
+  allProfessionalExperiences as contentProfessionalExperiences,
+  personal as contentPersonal,
+} from '@content';
 import fs from 'node:fs';
 import path from 'node:path';
-import { parse as parseYaml } from 'yaml';
-
-interface PersonalData {
-  givenName: string;
-  familyName: string;
-  title: string;
-  location: string;
-  phoneNumber?: string;
-  email?: string;
-  birthday?: string;
-  hobbies?: string;
-  languages?: string;
-  nationality?: string;
-  civilStatus?: string;
-  body: { html: string };
-}
-
-interface SkillData {
-  _id: string;
-  title: string;
-  body: { html: string };
-}
-
-interface SoftSkillData {
-  _id: string;
-  title: string;
-  body: { html: string };
-}
 
 interface ProfessionalTitleData {
   title: string;
@@ -39,14 +18,6 @@ interface ProfessionalExperienceData {
   _id: string;
   organization: string;
   titles: ProfessionalTitleData[];
-  body: { html: string };
-}
-
-interface AchievementData {
-  _id: string;
-  achievement: string;
-  organization: string;
-  completionYear: number;
   body: { html: string };
 }
 
@@ -82,30 +53,14 @@ interface PreferredStackItem {
 }
 
 export interface ContentData {
-  personal: PersonalData;
-  allSkills: SkillData[];
-  allSoftSkills: SoftSkillData[];
+  personal: Personal;
   allProfessionalExperiences: ProfessionalExperienceData[];
-  allAchievements: AchievementData[];
+  allAchievements: Achievement[];
   allCourses: CourseData[];
   coursesByTopic: CoursesByTopic;
   allProjects: ProjectData[];
   projectsByTag: ProjectsByTag;
   preferredStack: PreferredStackItem[];
-}
-
-function parseFrontmatter(content: string): {
-  // oxlint-disable-next-line typescript/no-explicit-any -- untyped YAML frontmatter
-  data: Record<string, any>;
-  body: string;
-} {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) {
-    return { data: {}, body: content };
-  }
-
-  const [, frontmatterStr, body] = match;
-  return { data: parseYaml(frontmatterStr) ?? {}, body };
 }
 
 // frontmatter dates are written as `2024/07`; render them like the web page
@@ -117,126 +72,25 @@ function formatDate(date: string): string {
   });
 }
 
-function markdownToHtml(markdown: string): string {
-  return markdown
-    .replaceAll(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replaceAll(/\*(.+?)\*/g, '<em>$1</em>')
-    .replaceAll(/`(.+?)`/g, '<code>$1</code>')
-    .split('\n\n')
-    .map((para) => {
-      if (para.startsWith('- ')) {
-        const items = para
-          .split('\n')
-          .filter((line) => line.startsWith('- '))
-          .map((line) => `<li>${line.slice(2)}</li>`)
-          .join('');
-        return `<ul>${items}</ul>`;
-      }
-      return `<p>${para}</p>`;
-    })
-    .join('');
-}
-
 export async function loadContent(): Promise<ContentData> {
-  const contentDir = path.join(process.cwd(), 'edit-me', 'content');
-
-  // Load personal info
-  const personalPath = path.join(contentDir, 'personal.md');
-  const personalFile = fs.readFileSync(personalPath, 'utf8');
-  const personalParsed = parseFrontmatter(personalFile);
-  const personal: PersonalData = {
-    givenName: personalParsed.data.givenName,
-    familyName: personalParsed.data.familyName,
-    title: personalParsed.data.title,
-    location: personalParsed.data.location,
-    phoneNumber: personalParsed.data.phoneNumber,
-    email: personalParsed.data.email,
-    birthday: personalParsed.data.birthday,
-    hobbies: personalParsed.data.hobbies,
-    languages: personalParsed.data.languages,
-    nationality: personalParsed.data.nationality,
-    civilStatus: personalParsed.data.civilStatus,
-    body: { html: markdownToHtml(personalParsed.body) },
-  };
-
-  // Load skills
-  const skillsDir = path.join(contentDir, 'skills');
-  const skillFiles = fs.readdirSync(skillsDir).filter((f) => f.endsWith('.md'));
-  const allSkills: SkillData[] = skillFiles
-    .map((file) => {
-      const filePath = path.join(skillsDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const parsed = parseFrontmatter(fileContent);
-      return {
-        _id: file,
-        title: parsed.data.title,
-        body: { html: markdownToHtml(parsed.body) },
-      };
-    })
+  // The website and the PDF share the Contentlayer documents, so Markdown
+  // (links, nested and numbered lists) and CRLF frontmatter render alike.
+  const allProfessionalExperiences = contentProfessionalExperiences
+    .map(({ _id, organization, titles, body }) => ({
+      _id,
+      organization,
+      titles: titles.map((title) => ({
+        title: title.title,
+        startDate: formatDate(title.startDate),
+        endDate: title.endDate ? formatDate(title.endDate) : undefined,
+      })),
+      body,
+    }))
     .toSorted((a, b) => a._id.localeCompare(b._id));
 
-  // Load soft skills
-  const softSkillsDir = path.join(contentDir, 'soft-skills');
-  const softSkillFiles = fs
-    .readdirSync(softSkillsDir)
-    .filter((f) => f.endsWith('.md'));
-  const allSoftSkills: SoftSkillData[] = softSkillFiles
-    .map((file) => {
-      const filePath = path.join(softSkillsDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const parsed = parseFrontmatter(fileContent);
-      return {
-        _id: file,
-        title: parsed.data.title,
-        body: { html: markdownToHtml(parsed.body) },
-      };
-    })
-    .toSorted((a, b) => a._id.localeCompare(b._id));
-
-  // Load professional experiences
-  const profExpDir = path.join(contentDir, 'professional-experiences');
-  const profExpFiles = fs
-    .readdirSync(profExpDir)
-    .filter((f) => f.endsWith('.md'));
-  const allProfessionalExperiences: ProfessionalExperienceData[] = profExpFiles
-    .map((file) => {
-      const filePath = path.join(profExpDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const parsed = parseFrontmatter(fileContent);
-      return {
-        _id: file,
-        organization: parsed.data.organization,
-        titles: parsed.data.titles.map(
-          (title: { title: string; startDate: string; endDate?: string }) => ({
-            title: title.title,
-            startDate: formatDate(title.startDate),
-            endDate: title.endDate ? formatDate(title.endDate) : undefined,
-          }),
-        ),
-        body: { html: markdownToHtml(parsed.body) },
-      };
-    })
-    .toSorted((a, b) => a._id.localeCompare(b._id));
-
-  // Load achievements
-  const achievementsDir = path.join(contentDir, 'achievements');
-  const achievementFiles = fs
-    .readdirSync(achievementsDir)
-    .filter((f) => f.endsWith('.md'));
-  const allAchievements: AchievementData[] = achievementFiles
-    .map((file) => {
-      const filePath = path.join(achievementsDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const parsed = parseFrontmatter(fileContent);
-      return {
-        _id: file,
-        achievement: parsed.data.achievement,
-        organization: parsed.data.organization,
-        completionYear: Number(parsed.data.completionYear),
-        body: { html: markdownToHtml(parsed.body) },
-      };
-    })
-    .toSorted((a, b) => b.completionYear - a.completionYear);
+  const allAchievements = contentAchievements.toSorted(
+    (a, b) => b.completionYear - a.completionYear,
+  );
 
   // Load courses from courses.json
   const coursesJsonPath = path.join(
@@ -307,9 +161,7 @@ export async function loadContent(): Promise<ContentData> {
   }
 
   return {
-    personal,
-    allSkills,
-    allSoftSkills,
+    personal: contentPersonal,
     allProfessionalExperiences,
     allAchievements,
     allCourses,

@@ -1,3 +1,7 @@
+import {
+  allProfessionalExperiences as webExperiences,
+  personal as webPersonal,
+} from '@content';
 import { describe, expect, test } from 'bun:test';
 import { loadContent } from './content-loader';
 
@@ -46,5 +50,14 @@ describe('loadContent', () => {
     for (const experience of allProfessionalExperiences) {
       expect(experience.body.html).toContain('<');
     }
+  });
+
+  test('Reuses the Contentlayer documents rendered on the website', async () => {
+    const { personal, allProfessionalExperiences } = await loadContent();
+
+    expect(personal).toBe(webPersonal);
+    expect(
+      allProfessionalExperiences.map((e) => e.body.html).toSorted(),
+    ).toEqual(webExperiences.map((e) => e.body.html).toSorted());
   });
 });
